@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   isLogin: boolean = false
   errorMessage: any
   constructor(
@@ -20,22 +21,22 @@ export class LoginComponent implements OnInit {
     this.isUserLogin();
   }
   onSubmit(form: NgForm) {
-    console.log('Your form data : ', form.value);
-    console.log('Your form uername : ', form.value.username);
-    console.log('Your form pwd : ', form.value.password);
+    // console.log('Your form data : ', form.value);
+    // console.log('Your form uername : ', form.value.username);
+    // console.log('Your form pwd : ', form.value.password);
     if(form.value.username?.length== 0 || form.value.password?.length== 0) {
       this.isLogin = false;
-      this.errorMessage = "Failed to login. Incorrect username or password";
+      this.errorMessage = "Failed to login. Empty username or password";
       return;
     }
 
     this._api.postTypeRequest('user/login', form.value).subscribe((res: any) => {
       console.log("res.status="+res.status);
       if (res.status) {
-
+        this.isLogin = true;
         this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
         this._auth.setDataInLocalStorage('token', res.token);
-        this._router.navigate(['']);
+        this._router.navigate(['/home']);
       } else {
         this.isLogin = false;
         this.errorMessage = "Failed to login. Incorrect username or password";

@@ -13,7 +13,7 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: url('./images/bg.jpg');
+	background: url('../../../images/bg.jpg');
 	background-size: cover;
 }
 .Contact .content

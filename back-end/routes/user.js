@@ -15,12 +15,12 @@ router.post('/register', async function (req, res, next) {
     let { username, email, password } = req.body; 
    
     const hashed_password = md5(password.toString())
-    const checkUsername = `Select username FROM users WHERE username = ?`;
+    const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
     
 con.connect(function(err) {
     if (err) throw err;
 
-    con.query(checkUsername, [username], (err, result, fields) => {
+    con.query(checkUserEmail, [email], (err, result, fields) => {
 
       console.log("result="+ !result);
 
@@ -31,7 +31,7 @@ con.connect(function(err) {
       if(!result || !result.length){
 
         console.log("inside")
-        const sql = `Insert Into users (username, email, password) VALUES ( ?, ?, ? )`
+        const sql = `Insert Into users (username, UserEmail, password ,userrole) VALUES ( ?,?,?,"CUSTOMER")`
         con.query(
           sql, [username, email, hashed_password],
         (err, result, fields) =>{
@@ -51,6 +51,7 @@ con.connect(function(err) {
     res.send({ status: 0, error: error });
   }
 });
+
 router.post('/login', async function (req, res, next) {
   try {
     let { username, password } = req.body; 
@@ -76,4 +77,36 @@ router.post('/login', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
+
+router.post('/getbookings', async function (req, res, next) {
+  try {
+    let { email, Userrole  } = req.body;
+    console.log("email=" + email + "  Userrole=" + Userrole)
+        if(Userrole=="ADMIN"){
+          const getbookingsquery=`SELECT * From Bookings`    
+          con.query(getbookingsquery, [], (err, result, fields) => {
+            console.log("result="+ result + err);
+            if(err){ 
+              res.status(500).send({ status: 0, data: err });
+            } else{
+              res.status(200).send({ status: 1, data: result});
+            }
+          });
+        } else {
+          const getbookingsquery= `SELECT * From Bookings WHERE UserEmail= ? `
+          con.query(getbookingsquery, [email], (err, result, fields) => {
+            console.log("result="+ result + err);
+            if(err){ 
+              res.status(500).send({ status: 0, data: err });
+            } else{
+              res.status(200).send({ status: 1, data: result});
+            }
+          });
+        }
+} catch (error) {
+    res.send({ status: 0, error: error });
+  }
+});
+
+
 module.exports = router;
