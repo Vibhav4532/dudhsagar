@@ -108,5 +108,26 @@ router.post('/getbookings', async function (req, res, next) {
   }
 });
 
+router.post('/addbooking', async function  (req , res , next){
+  try {
+    let { email,dateTime, seats } = req.body;
+    console.log("email=" + email );
+   // const uuidv4 = require("uuid/v4")
+    let transactionId = "abcd-efgh"; //uuidv4();
+    console.log("email=" + email + "transationId=" + transactionId + "dateTime=" + dateTime + "seats=" +seats )
+    const addbookingsquery=`Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats) VALUES ( ?,?,?,?)`   
+    con.query(addbookingsquery, [email, transactionId, dateTime, seats], (err, result, fields) => {  
+      console.log("result="+ result + err);
+      if (err){ 
+        res.status(500).send({ status: 0, data: err });
+      } 
+      else{
+        res.status(200).send({ status: 1, data: result});
+      }
 
+    });
+ } catch (error) {
+  res.send({ status: 0, error: error });
+ }
+});
 module.exports = router;
