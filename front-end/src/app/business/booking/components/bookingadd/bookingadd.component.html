@@ -1,27 +1,17 @@
 <div class='row m-0 w-100'>
-      <h4>Add Booking</h4>
-     <!--- <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">--->
-         <form>
-        <div class='form-group'>
-          <!-- <input class='form-control' type="" name="No Of seats" placeholder="No of seats" ngModel> -->
-          <label>Number of Seats </label>
-         <select id="selectNumber">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-            <option value="4">Four</option>
-            <option value="5">Five</option>
-            <option value="6">six</option>
-            <option value="7">seven</option>
-          </select>
-        </div>
-        <div class='form-group'>
-            <label for="triptime">Trip (Date and Time):</label>
-            <input type="datetime-local" id="triptime" name="triptime">
-        </div>
-        <div>
-       <button (click)="confirmClicked()">Confirm</button>
-        <!-- <input class='btn btn-outline-info' ng-click="confirmClicked()" type="submit" value="Confirm">   -->
-      <!-- <input class='btn btn-outline-info' type="submit" value="Cancel"> -->
-      <button (click)="cancelClicked()">Cancel</button>
-    </div>
+  <!-- <div class='col-md-4 offset-4 mt-5' *ngIf='!isLogin'> -->
+    <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
+      <!-- <div class='form-group'> -->
+        <!-- <input class='datetime-local' placeholder=""yyyy-MM-ddTHH:mm:ss"" ngModel>
+      </div> -->
+      <input type="datetime-local" id="triptime" name="triptime" ngModel
+      placeholder="yyyy-MM-ddTHH:mm:ss" min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" required />
+      <!-- <div class='form-group'> -->
+        <!-- <input class='form-control' type=" " name="email" placeholder="Email" ngModel> -->
+      <!-- </div> -->
+      <input class='btn btn-outline-info' type="submit" value="Confirm">
+    </form>   
+  </div>
+  <!-- <div class='col-md-4 offset-4 mt-5' *ngIf='isLogin'> -->
+    <!-- <h5>You are already logged in</h5>
+  </div> -->

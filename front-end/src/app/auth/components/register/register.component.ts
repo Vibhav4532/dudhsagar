@@ -33,7 +33,7 @@ this._api.postTypeRequest('user/register', form.value).subscribe((res: any) => {
       }
     });
 }
-isUserLogin(){
+isUserLogin(){ 
     
     if(this._auth.getUserDetails() != null){
   this.isLogin = true;

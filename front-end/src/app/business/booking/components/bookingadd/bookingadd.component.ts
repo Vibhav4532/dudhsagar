@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
+import {NgForm} from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-bookingadd',
@@ -26,8 +28,8 @@ export class BookingAddComponent implements OnInit {
       var userDetails = JSON.parse(userDetailsJsonObject!);
       console.log(userDetails[0].UserEmail);
       var userEmail =  userDetails[0].UserEmail; 
-      var dateTime  = "2022-04-27 15:40:00";// form.value.triptime;
-      var seats = 4;
+      var dateTime  = "2022-04-6 15:10:00";// form.value.triptime;
+      var seats = 6;
       this._api.postTypeRequest('user/addbooking', 
            { 'email': userEmail , 'dateTime':dateTime , 'seats':seats})
            .subscribe((res: any) => {
@@ -55,6 +57,31 @@ export class BookingAddComponent implements OnInit {
   ngOnInit(): void { 
   }
 
+  onSubmit(form: NgForm){
+     console.log("Inside Confirm click");
+    // let { email,dateTime, seats } = req.body;
+    if (this._auth.getUserDetails() != null && this._auth.getUserDetails()!.length > 1) {
+      let userDetailsJsonObject = this._auth.getUserDetails();
+      var userDetails = JSON.parse(userDetailsJsonObject!);
+      console.log(userDetails[0].UserEmail);
+      var userEmail =  userDetails[0].UserEmail; 
+      // Read https://www.concretepage.com/angular-2/angular-2-ngform-with-ngmodel-directive-example
+      // for directions to extract the dateTime below.
+      console.log(form.controls["triptime"].value);
+      var dateTime  = form.controls["triptime"].value; 
+      var seats = 6;
+      this._api.postTypeRequest('user/addbooking', 
+           { 'email': userEmail , 'dateTime':dateTime , 'seats':seats})
+           .subscribe((res: any) => {
+          console.log("res.status="+res.status);
+            if (res.status) {
+              console.log(res);
+              console.log("res data="+res.data);
+              console.log("addbooking result = " + res.data);
+            }
+      });
+    }
+  }
 }
 // CREATE TABLE Bookings (
 //   BookingId int(11) NOT NULL,

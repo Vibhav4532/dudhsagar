@@ -1,3 +1,6 @@
+// import { v4 as uuidv4 } from 'uuid';
+// const uuidv4 = require("uuid/v4");
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const router = express.Router();
 const md5 = require('md5');
@@ -112,8 +115,7 @@ router.post('/addbooking', async function  (req , res , next){
   try {
     let { email,dateTime, seats } = req.body;
     console.log("email=" + email );
-   // const uuidv4 = require("uuid/v4")
-    let transactionId = "abcd-efgh"; //uuidv4();
+    let transactionId =uuidv4();
     console.log("email=" + email + "transationId=" + transactionId + "dateTime=" + dateTime + "seats=" +seats )
     const addbookingsquery=`Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats) VALUES ( ?,?,?,?)`   
     con.query(addbookingsquery, [email, transactionId, dateTime, seats], (err, result, fields) => {  
@@ -127,6 +129,7 @@ router.post('/addbooking', async function  (req , res , next){
 
     });
  } catch (error) {
+   console.log(error=error);
   res.send({ status: 0, error: error });
  }
 });
