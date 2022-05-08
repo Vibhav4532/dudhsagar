@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DriveraddComponent } from './business/components/driveradd/driveradd.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DriveraddComponent
   ],
   imports: [
     BrowserModule,

@@ -10,7 +10,6 @@ import { AuthModule } from './auth/auth/auth.module';
 import { ProfileComponent } from './main/profile/profile.component';
 import { InterceptorService } from './services/interceptor-service.service';
 import { ContactComponent } from './static/components/contact/contact.component';
-import { DriverComponent } from './business/components/driver/driver.component';
 import { AdminComponent } from './auth/components/admin/admin.component';
 import { GalleryComponent } from './static/components/gallery/gallery.component';
 import { AdminbookingComponent } from './business/components/adminbooking/adminbooking.component';
@@ -20,13 +19,14 @@ import { BookingAddComponent } from './business/booking/components/bookingadd/bo
 import { BookingupdateComponent } from './business/booking/components/bookingupdate/bookingupdate.component';
 import { HomeComponent } from './business/components/home/home.component';
 import { AdminhomeComponent } from './business/components/adminhome/adminhome.component';
+import { DriveraddComponent } from './business/components/driveradd/driveradd.component';
+import { DriverlistComponent } from './business/components/driverlist/driverlist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
     ContactComponent,
-    DriverComponent,
     AdminComponent,
     GalleryComponent,
     AdminbookingComponent,
@@ -36,6 +36,8 @@ import { AdminhomeComponent } from './business/components/adminhome/adminhome.co
     BookingupdateComponent,
     HomeComponent,
     AdminhomeComponent,
+    DriveraddComponent,
+    DriverlistComponent,
   ],
   imports: [
     BrowserModule,

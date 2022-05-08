@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ApiService } from './../../../services/api.service'
-import { AuthService } from './../../../services/auth.service'
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './driver.component.html',
-  styleUrls: ['./driver.component.css']
+  selector: 'app-driveradd',
+  templateUrl: './driveradd.component.html',
+  styleUrls: ['./driveradd.component.css']
 })
-
-export class DriverComponent implements OnInit {
+export class DriveraddComponent implements OnInit {
   isLogin: boolean = false
   errorMessage: any
   constructor(
@@ -18,9 +17,11 @@ export class DriverComponent implements OnInit {
     private _auth: AuthService,
     private _router: Router
   ) { }
+
   ngOnInit() {
     this.isUserLogin();
   }
+
   onSubmit(form: NgForm) {
     console.log("Called OnSubmit. Trying to Register...")
     this._api.postTypeRequest('user/driverregister', form.value).subscribe((res: any) => {
@@ -33,13 +34,10 @@ export class DriverComponent implements OnInit {
       }
     });
   }
+  
   isUserLogin() {
-
     if (this._auth.getUserDetails() != null) {
       this.isLogin = true;
     }
   }
 }
-
-
-
