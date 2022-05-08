@@ -86,34 +86,28 @@ router.post('/driverregister', async function (req, res, next) {
     let { firstName, lastName, licenceNo, mobileNo, email, password } = req.body;
     const hashed_password = md5(password.toString())
     const checkUserEmail = `Select Email FROM Drivers WHERE Email = ?`
-    // con.connect(function (err) {
-      // if (err) {
-      //   throw err;
-      // }
+    con.query(checkUserEmail, [email], (err, result, fields) => {
+      console.log("result=" + !result);
+      if (err) {
+        res.send("Error...");
+      }
 
-      con.query(checkUserEmail, [email], (err, result, fields) => {
-        console.log("result=" + !result);
-        if (err) {
-          res.send("Error...");
-        }
-
-        if (!result || !result.length) {
-          console.log("inside")
-          const sql = `Insert Into Drivers (Firstname,Lastname, LicenceNo,MobileNo, Email,password ,userrole) VALUES ( ?,?,?,?,?,?,"DRIVER")`
-          con.query(
-            sql, [firstName, lastName, licenceNo, mobileNo, email, hashed_password],
-            (err, result, fields) => {
-              console.log("err=" + err);
-              if (err) {
-                res.send({ status: 0, data: err });
-              } else {
-                let token = jwt.sign({ data: result }, 'secret')
-                res.send({ status: 1, data: result, token: token });
-              }
-            })
-        }
-      });
-    // });
+      if (!result || !result.length) {
+        console.log("inside")
+        const sql = `Insert Into Drivers (Firstname,Lastname, LicenceNo,MobileNo, Email,password ,userrole) VALUES ( ?,?,?,?,?,?,"DRIVER")`
+        con.query(
+          sql, [firstName, lastName, licenceNo, mobileNo, email, hashed_password],
+          (err, result, fields) => {
+            console.log("err=" + err);
+            if (err) {
+              res.send({ status: 0, data: err });
+            } else {
+              let token = jwt.sign({ data: result }, 'secret')
+              res.send({ status: 1, data: result, token: token });
+            }
+          })
+      }
+    });
   } catch (error) {
     res.send({ status: 0, error: error });
   }
