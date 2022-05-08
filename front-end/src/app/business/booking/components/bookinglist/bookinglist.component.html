@@ -1,37 +1,37 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Booking List</h2>
-    </div>
+  <div class="panel-heading">
+    <h2>Booking List</h2>
+  </div>
 
 
 
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>BookingId</th>
-            <th>Date And Time</th>
-            <th>Seats</th>
-            <th>TransactionId</th>
-            <th>UserEmail</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let booking of bookings ">
-              
-            <td>{{booking.BookingId}}</td>
-            <td>{{booking.DateTime}}</td>
-            <td>{{booking.Seats}}</td>
-            <td>{{booking.TransactionId}}</td>
-            <td>{{booking.UserEmail}}</td>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>BookingId</th>
+          <th>Date And Time</th>
+          <th>Seats</th>
+          <th>TransactionId</th>
+          <th>UserEmail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings ">
+
+          <td>{{booking.BookingId}}</td>
+          <td>{{booking.DateTime}}</td>
+          <td>{{booking.Seats}}</td>
+          <td>{{booking.TransactionId}}</td>
+          <td>{{booking.UserEmail}}</td>
           <!--<td><button (click)="deleteBooking(booking.BookingId)" class="btn btn-danger">Delete</button>
                 <button (click)="updateBooking(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Update Details</button>
                 <button (click)="bookingDetails(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Ticket Details</button>
             </td> -->
-          </tr>
-        </tbody>
-      </table> 
+        </tr>
+      </tbody>
+    </table>
 
-    </div>
+  </div>
 
 </div>

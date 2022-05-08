@@ -11,19 +11,23 @@ import { GalleryComponent } from './static/components/gallery/gallery.component'
 import { BookingListComponent } from './business/booking/components/bookinglist/bookinglist.component';
 import { BookingAddComponent } from './business/booking/components/bookingadd/bookingadd.component';
 import { AdminhomeComponent } from './business/components/adminhome/adminhome.component';
+import { DriveraddComponent } from './business/components/driveradd/driveradd.component';
+import { DriverlistComponent } from './business/components/driverlist/driverlist.component';
 
 
 const routes: Routes = [
-{path: 'login', component: LoginComponent},
-{path: 'register', component: RegisterComponent},
-{path:'contact',component: ContactComponent},
-{path:'gallery',component: GalleryComponent},
-{path:'admin',component: AdminComponent},
-{path:'home',component:HomeComponent},
-{path:'bookinglist',component:BookingListComponent},
-{path:'bookingadd',component:BookingAddComponent},
-{path:'adminhome',component:AdminhomeComponent},
-{path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},];
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'bookinglist', component: BookingListComponent },
+  { path: 'bookingadd', component: BookingAddComponent },
+  { path: 'adminhome', component: AdminhomeComponent },
+  {path:'driveradd',component:DriveraddComponent},
+  {path:'driverlist',component:DriverlistComponent},
+  { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

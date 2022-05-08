@@ -34,7 +34,7 @@ export class DriveraddComponent implements OnInit {
       }
     });
   }
-  
+
   isUserLogin() {
     if (this._auth.getUserDetails() != null) {
       this.isLogin = true;

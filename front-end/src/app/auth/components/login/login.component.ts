@@ -24,23 +24,22 @@ export class LoginComponent implements OnInit {
     // console.log('Your form data : ', form.value);
     // console.log('Your form uername : ', form.value.username);
     // console.log('Your form pwd : ', form.value.password);
-    if(form.value.username?.length== 0 || form.value.password?.length== 0) {
+    if (form.value.username?.length == 0 || form.value.password?.length == 0) {
       this.isLogin = false;
       this.errorMessage = "Failed to login. Empty username or password";
       return;
     }
 
     this._api.postTypeRequest('user/login', form.value).subscribe((res: any) => {
-      console.log("res.status="+res.status);
+      console.log("res.status=" + res.status);
       if (res.status) {
         this.isLogin = true;
         this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
         console.log(res.data[0].Userrole);
         this._auth.setDataInLocalStorage('token', res.token);
-        if(res.data[0].Userrole == 'ADMIN') {
+        if (res.data[0].Userrole == 'ADMIN') {
           this._router.navigate(['/adminhome']);
-        } else
-        {
+        } else {
           this._router.navigate(['/home']);
         }
 
@@ -49,12 +48,12 @@ export class LoginComponent implements OnInit {
         this.errorMessage = "Failed to login. Incorrect username or password";
       }
     }, err => {
-        this.isLogin = false;
-        this.errorMessage = "Failed to login. Incorrect username or password. err="+err.message;
+      this.isLogin = false;
+      this.errorMessage = "Failed to login. Incorrect username or password. err=" + err.message;
     })
   }
   isUserLogin() {
-    console.log("userdetails"+this._auth.getUserDetails());
+    console.log("userdetails" + this._auth.getUserDetails());
     if (this._auth.getUserDetails() != null && this._auth.getUserDetails()!.length > 1) {
       this.isLogin = true;
     } else {

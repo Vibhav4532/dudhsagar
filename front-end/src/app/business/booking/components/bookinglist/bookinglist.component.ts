@@ -23,25 +23,25 @@ export class BookingListComponent implements OnInit {
     this.reloadData();
   }
 
-  reloadData( ){
-     /* Call the server only if the login was successful. */
-     if (this._auth.getUserDetails() != null && this._auth.getUserDetails()!.length > 1) {
+  reloadData() {
+    /* Call the server only if the login was successful. */
+    if (this._auth.getUserDetails() != null && this._auth.getUserDetails()!.length > 1) {
       let userDetailsJsonObject = this._auth.getUserDetails();
       var userDetails = JSON.parse(userDetailsJsonObject!);
       console.log(userDetails[0].UserEmail);
-      var userEmail =  userDetails[0].UserEmail;
+      var userEmail = userDetails[0].UserEmail;
       var userRole = userDetails[0].Userrole;
       this._api.postTypeRequest('book/getbookings',
-                                  { 'email': userEmail , 'Userrole': userRole })
+        { 'email': userEmail, 'Userrole': userRole })
         .subscribe((res: any) => {
-          console.log("res.status="+res.status);
-            if (res.status) {
-              console.log(res);
-              console.log("res data="+res.data);
-              this.bookings = res.data;
-              console.log( this.bookings);
-            }
-      });
+          console.log("res.status=" + res.status);
+          if (res.status) {
+            console.log(res);
+            console.log("res data=" + res.data);
+            this.bookings = res.data;
+            console.log(this.bookings);
+          }
+        });
     } else {
       this._router.navigate(['/login']);
     }
@@ -53,7 +53,7 @@ export class BookingListComponent implements OnInit {
   //       data => {
   //         console.log(data);
   //         this.reloadData();
-          
+
   //       },
   //       error => console.log(error));*/
   // }
@@ -67,4 +67,4 @@ export class BookingListComponent implements OnInit {
   //   //this.router.navigate(['update', id]);
 
   // }
-  }
+}
