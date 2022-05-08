@@ -1,17 +1,12 @@
 <div class='row m-0 w-100'>
-  <!-- <div class='col-md-4 offset-4 mt-5' *ngIf='!isLogin'> -->
+
     <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
-      <!-- <div class='form-group'> -->
-        <!-- <input class='datetime-local' placeholder=""yyyy-MM-ddTHH:mm:ss"" ngModel>
-      </div> -->
       <input type="datetime-local" id="triptime" name="triptime" ngModel
-      placeholder="yyyy-MM-ddTHH:mm:ss" min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" required />
-      <!-- <div class='form-group'> -->
-        <!-- <input class='form-control' type=" " name="email" placeholder="Email" ngModel> -->
-      <!-- </div> -->
+      placeholder="yyyy-MM-ddTHH:mm:ss" min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
+      <select formControlName="seats" id="seats" class="form-control" ngModel>
+        <option disabled>Select Number of seats</option>
+        <option *ngFor="let seats of numSeatsOptions">{{seats}}</option>
+      </select>
       <input class='btn btn-outline-info' type="submit" value="Confirm">
     </form>   
   </div>
-  <!-- <div class='col-md-4 offset-4 mt-5' *ngIf='isLogin'> -->
-    <!-- <h5>You are already logged in</h5>
-  </div> -->

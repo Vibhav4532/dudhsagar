@@ -15,122 +15,107 @@ const con = mysql.createConnection({
 /* GET users listing. */
 router.post('/register', async function (req, res, next) {
   try {
-    let { username, email, password } = req.body; 
-   
+    let { username, email, password } = req.body;
+
     const hashed_password = md5(password.toString())
     const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
-    
-con.connect(function(err) {
-    if (err) throw err;
 
-    con.query(checkUserEmail, [email], (err, result, fields) => {
+    con.connect(function (err) {
+      if (err) throw err;
 
-      console.log("result="+ !result);
+      con.query(checkUserEmail, [email], (err, result, fields) => {
 
-      if(err){
-        res.send("Error...");
-      }
+        console.log("result=" + !result);
 
-      if(!result || !result.length){
+        if (err) {
+          res.send("Error...");
+        }
 
-        console.log("inside")
-        const sql = `Insert Into users (username, UserEmail, password ,userrole) VALUES ( ?,?,?,"CUSTOMER")`
-        con.query(
-          sql, [username, email, hashed_password],
-        (err, result, fields) =>{
-            console.log("err="+err);
-          if(err){
-            res.send({ status: 0, data: err });
-          }else{
-            let token = jwt.sign({ data: result }, 'secret')
-            res.send({ status: 1, data: result, token : token });
-          }
-         
-        })
-      }
+        if (!result || !result.length) {
+
+          console.log("inside")
+          const sql = `Insert Into users (username, UserEmail, password ,userrole) VALUES ( ?,?,?,"CUSTOMER")`
+          con.query(
+            sql, [username, email, hashed_password],
+            (err, result, fields) => {
+              console.log("err=" + err);
+              if (err) {
+                res.send({ status: 0, data: err });
+              } else {
+                let token = jwt.sign({ data: result }, 'secret')
+                res.send({ status: 1, data: result, token: token });
+              }
+
+            })
+        }
+      });
     });
-});
-} catch (error) {
+  } catch (error) {
     res.send({ status: 0, error: error });
   }
 });
 
 router.post('/login', async function (req, res, next) {
   try {
-    let { username, password } = req.body; 
-   
+    let { username, password } = req.body;
+
     const hashed_password = md5(password.toString())
     const sql = `SELECT * FROM users WHERE username = ? AND password = ?`
     con.query(
       sql, [username, hashed_password],
-    function(err, result, fields){
+      function (err, result, fields) {
 
-        console.log("result="+result)
-      if(err){
-        res.status(500).send({ status: 0, data: err });
-      }else if(result!=null&&result.length>0){
-        let token = jwt.sign({ data: result }, 'secret')
-        res.status(200).send({ status: 1, data: result, token: token });
-      } else {
-        res.status(400).send({ status: 0, data:  Error("Incorrect username/password") });
-      }
-     
-    })
+        console.log("result=" + result)
+        if (err) {
+          res.status(500).send({ status: 0, data: err });
+        } else if (result != null && result.length > 0) {
+          let token = jwt.sign({ data: result }, 'secret')
+          res.status(200).send({ status: 1, data: result, token: token });
+        } else {
+          res.status(400).send({ status: 0, data: Error("Incorrect username/password") });
+        }
+
+      })
   } catch (error) {
     res.send({ status: 0, error: error });
   }
 });
 
-router.post('/getbookings', async function (req, res, next) {
+router.post('/driverregister', async function (req, res, next) {
   try {
-    let { email, Userrole  } = req.body;
-    console.log("email=" + email + "  Userrole=" + Userrole)
-        if(Userrole=="ADMIN"){
-          const getbookingsquery=`SELECT * From Bookings`    
-          con.query(getbookingsquery, [], (err, result, fields) => {
-            console.log("result="+ result + err);
-            if(err){ 
-              res.status(500).send({ status: 0, data: err });
-            } else{
-              res.status(200).send({ status: 1, data: result});
-            }
-          });
-        } else {
-          const getbookingsquery= `SELECT * From Bookings WHERE UserEmail= ? `
-          con.query(getbookingsquery, [email], (err, result, fields) => {
-            console.log("result="+ result + err);
-            if(err){ 
-              res.status(500).send({ status: 0, data: err });
-            } else{
-              res.status(200).send({ status: 1, data: result});
-            }
-          });
+    let { firstName, lastName, licenceNo, mobileNo, email, password } = req.body;
+    const hashed_password = md5(password.toString())
+    const checkUserEmail = `Select Email FROM Drivers WHERE Email = ?`
+    // con.connect(function (err) {
+      // if (err) {
+      //   throw err;
+      // }
+
+      con.query(checkUserEmail, [email], (err, result, fields) => {
+        console.log("result=" + !result);
+        if (err) {
+          res.send("Error...");
         }
-} catch (error) {
+
+        if (!result || !result.length) {
+          console.log("inside")
+          const sql = `Insert Into Drivers (Firstname,Lastname, LicenceNo,MobileNo, Email,password ,userrole) VALUES ( ?,?,?,?,?,?,"DRIVER")`
+          con.query(
+            sql, [firstName, lastName, licenceNo, mobileNo, email, hashed_password],
+            (err, result, fields) => {
+              console.log("err=" + err);
+              if (err) {
+                res.send({ status: 0, data: err });
+              } else {
+                let token = jwt.sign({ data: result }, 'secret')
+                res.send({ status: 1, data: result, token: token });
+              }
+            })
+        }
+      });
+    // });
+  } catch (error) {
     res.send({ status: 0, error: error });
   }
-});
-
-router.post('/addbooking', async function  (req , res , next){
-  try {
-    let { email,dateTime, seats } = req.body;
-    console.log("email=" + email );
-    let transactionId =uuidv4();
-    console.log("email=" + email + "transationId=" + transactionId + "dateTime=" + dateTime + "seats=" +seats )
-    const addbookingsquery=`Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats) VALUES ( ?,?,?,?)`   
-    con.query(addbookingsquery, [email, transactionId, dateTime, seats], (err, result, fields) => {  
-      console.log("result="+ result + err);
-      if (err){ 
-        res.status(500).send({ status: 0, data: err });
-      } 
-      else{
-        res.status(200).send({ status: 1, data: result});
-      }
-
-    });
- } catch (error) {
-   console.log(error=error);
-  res.send({ status: 0, error: error });
- }
 });
 module.exports = router;

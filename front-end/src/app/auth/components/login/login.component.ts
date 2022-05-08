@@ -35,8 +35,15 @@ export class LoginComponent implements OnInit {
       if (res.status) {
         this.isLogin = true;
         this._auth.setDataInLocalStorage('userData', JSON.stringify(res.data));
+        console.log(res.data[0].Userrole);
         this._auth.setDataInLocalStorage('token', res.token);
-        this._router.navigate(['/home']);
+        if(res.data[0].Userrole == 'ADMIN') {
+          this._router.navigate(['/adminhome']);
+        } else
+        {
+          this._router.navigate(['/home']);
+        }
+
       } else {
         this.isLogin = false;
         this.errorMessage = "Failed to login. Incorrect username or password";

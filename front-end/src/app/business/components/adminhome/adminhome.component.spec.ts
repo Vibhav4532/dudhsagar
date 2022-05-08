@@ -1,19 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BookingAddComponent } from './bookingadd.component';
 
-describe('BookingaddComponent', () => {
-  let component: BookingAddComponent;
-  let fixture: ComponentFixture<BookingAddComponent>;
+import { AdminhomeComponent } from './adminhome.component';
+
+describe('AdminhomeComponent', () => {
+  let component: AdminhomeComponent;
+  let fixture: ComponentFixture<AdminhomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookingAddComponent ]
+      declarations: [ AdminhomeComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookingAddComponent);
+    fixture = TestBed.createComponent(AdminhomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -10,6 +10,9 @@ import { ContactComponent } from './static/components/contact/contact.component'
 import { GalleryComponent } from './static/components/gallery/gallery.component';
 import { BookingListComponent } from './business/booking/components/bookinglist/bookinglist.component';
 import { BookingAddComponent } from './business/booking/components/bookingadd/bookingadd.component';
+import { DriverComponent } from './business/components/driver/driver.component';
+import { AdminhomeComponent } from './business/components/adminhome/adminhome.component';
+
 
 const routes: Routes = [
 {path: 'login', component: LoginComponent},
@@ -18,8 +21,10 @@ const routes: Routes = [
 {path:'gallery',component: GalleryComponent},
 {path:'admin',component: AdminComponent},
 {path:'home',component:HomeComponent},
+{path:'driver',component:DriverComponent},
 {path:'bookinglist',component:BookingListComponent},
 {path:'bookingadd',component:BookingAddComponent},
+{path:'adminhome',component:AdminhomeComponent},
 {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent},];
 
 @NgModule({

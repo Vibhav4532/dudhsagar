@@ -31,7 +31,7 @@ export class BookingListComponent implements OnInit {
       console.log(userDetails[0].UserEmail);
       var userEmail =  userDetails[0].UserEmail;
       var userRole = userDetails[0].Userrole;
-      this._api.postTypeRequest('user/getbookings',
+      this._api.postTypeRequest('book/getbookings',
                                   { 'email': userEmail , 'Userrole': userRole })
         .subscribe((res: any) => {
           console.log("res.status="+res.status);

@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -19,7 +19,7 @@ import { BookingviewComponent } from './business/booking/components/bookingview/
 import { BookingAddComponent } from './business/booking/components/bookingadd/bookingadd.component';
 import { BookingupdateComponent } from './business/booking/components/bookingupdate/bookingupdate.component';
 import { HomeComponent } from './business/components/home/home.component';
-
+import { AdminhomeComponent } from './business/components/adminhome/adminhome.component';
 
 @NgModule({
   declarations: [
@@ -35,13 +35,15 @@ import { HomeComponent } from './business/components/home/home.component';
     BookingAddComponent,
     BookingupdateComponent,
     HomeComponent,
+    AdminhomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule,
-    AuthModule
+    AuthModule,
+    ReactiveFormsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
