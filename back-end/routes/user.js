@@ -135,7 +135,7 @@ router.post('/driverlist', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
-router.post('/vehicle', async function (req, res, next) {
+router.post('/vehicleadd', async function (req, res, next) {
   try {
     let { vehicleId,vehicleNo,model,seats } = req.body;
     const hashed_password = md5(password.toString())

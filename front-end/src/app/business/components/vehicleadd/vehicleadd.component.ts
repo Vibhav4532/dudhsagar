@@ -5,11 +5,11 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-vehicle',
-  templateUrl: './vehicle.component.html',
-  styleUrls: ['./vehicle.component.css']
+  selector: 'app-vehicleadd',
+  templateUrl: './vehicleadd.component.html',
+  styleUrls: ['./vehicleadd.component.css']
 })
-export class VehicleComponent implements OnInit {
+export class VehicleaddComponent implements OnInit {
   isLogin: boolean = false
   errorMessage: any
   constructor(
@@ -17,11 +17,9 @@ export class VehicleComponent implements OnInit {
     private _auth: AuthService,
     private _router: Router
   ) { }
-
   ngOnInit(): void {
     this.isUserLogin();
   }
-
   onSubmit(form: NgForm) {
     console.log("Called OnSubmit. Trying to Register...")
     this._api.postTypeRequest('user/vehicle', form.value).subscribe((res: any) => {
@@ -40,5 +38,5 @@ export class VehicleComponent implements OnInit {
       this.isLogin = true;
     }
   }
-}
 
+}

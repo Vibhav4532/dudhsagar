@@ -22,7 +22,7 @@ import { AdminhomeComponent } from './business/components/adminhome/adminhome.co
 import { DriveraddComponent } from './business/components/driveradd/driveradd.component';
 import { DriverlistComponent } from './business/components/driverlist/driverlist.component';
 import { PaymentComponent } from './business/components/payment/payment.component';
-import { VehicleComponent } from './business/component/vehicle/vehicle.component';
+import { VehicleaddComponent } from './business/components/vehicleadd/vehicleadd.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { VehicleComponent } from './business/component/vehicle/vehicle.component
     DriveraddComponent,
     DriverlistComponent,
     PaymentComponent,
-    VehicleComponent,
+    VehicleaddComponent,
   ],
   imports: [
     BrowserModule,
