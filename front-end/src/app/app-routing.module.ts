@@ -13,6 +13,7 @@ import { BookingAddComponent } from './business/booking/components/bookingadd/bo
 import { AdminhomeComponent } from './business/components/adminhome/adminhome.component';
 import { DriveraddComponent } from './business/components/driveradd/driveradd.component';
 import { DriverlistComponent } from './business/components/driverlist/driverlist.component';
+import { VehicleComponent } from './business/component/vehicle/vehicle.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'adminhome', component: AdminhomeComponent },
   {path:'driveradd',component:DriveraddComponent},
   {path:'driverlist',component:DriverlistComponent},
+  {path:'vehicle',component:VehicleComponent},
   { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },];
 
 @NgModule({

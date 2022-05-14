@@ -135,4 +135,35 @@ router.post('/driverlist', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
+router.post('/vehicle', async function (req, res, next) {
+  try {
+    let { vehicleId,vehicleNo,model,seats } = req.body;
+    const hashed_password = md5(password.toString())
+    const checkUserVehicleId = `Select VehicleId FROM Vehicles WHERE VehicleId = ?`
+    con.query(checkUserVehicleId, [vehicleId], (err, result, fields) => {
+      console.log("result=" + !result);
+      if (err) {
+        res.send("Error...");
+      }
+
+      if (!result || !result.length) {
+        console.log("inside")
+        const sql = `Insert Into Vehicles (VehicleId,VehicleNo,Model,Seats,userrole) VALUES ( ?,?,?,?,"Vehicle")`
+        con.query(
+          sql, [vehicleId,vehicleNo,model,seats],
+          (err, result, fields) => {
+            console.log("err=" + err);
+            if (err) {
+              res.send({ status: 0, data: err });
+            } else {
+              let token = jwt.sign({ data: result }, 'secret')
+              res.send({ status: 1, data: result, token: token });
+            }
+          })
+      }
+    });
+  } catch (error) {
+    res.send({ status: 0, error: error });
+  }
+});
 module.exports = router;
