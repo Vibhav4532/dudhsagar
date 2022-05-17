@@ -91,7 +91,9 @@ router.post('/driverregister', async function (req, res, next) {
       if (err) {
         res.send("Error...");
       }
-
+      // Insert a new row only if there is no existing row in the database.
+      // Insert a new row only if there is no existing row for the driverEmail in the database.
+      //only insert only if row not found in database
       if (!result || !result.length) {
         console.log("inside")
         const sql = `Insert Into Drivers (Firstname,Lastname, LicenceNo,MobileNo, Email,password ,userrole) VALUES ( ?,?,?,?,?,?,"DRIVER")`
@@ -135,29 +137,28 @@ router.post('/driverlist', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
+
 router.post('/vehicleadd', async function (req, res, next) {
   try {
-    let { vehicleId,vehicleNo,model,seats } = req.body;
-    const hashed_password = md5(password.toString())
-    const checkUserVehicleId = `Select VehicleId FROM Vehicles WHERE VehicleId = ?`
-    con.query(checkUserVehicleId, [vehicleId], (err, result, fields) => {
-      console.log("result=" + !result);
+    let { vehicleNo, model, seats } = req.body;
+    const checkVehicleNo = `Select VehicleNo FROM Vehicles WHERE VehicleNo= ?`
+    con.query(checkVehicleNo, [vehicleNo], (err, result, fields) => {
+      console.log("result=" + result);
       if (err) {
         res.send("Error...");
       }
-
+      // Only insert a new row if an existing row with the vehicleNo doesn't already exist in the database
       if (!result || !result.length) {
-        console.log("inside")
-        const sql = `Insert Into Vehicles (VehicleId,VehicleNo,Model,Seats,userrole) VALUES ( ?,?,?,?,"Vehicle")`
+        console.log("inside");
+        console.log(vehicleNo);
+        const sql = `Insert Into Vehicles (VehicleNo,Model,Seats) VALUES (?,?,?)`
         con.query(
-          sql, [vehicleId,vehicleNo,model,seats],
+          sql, [vehicleNo, model, seats],
           (err, result, fields) => {
             console.log("err=" + err);
             if (err) {
               res.send({ status: 0, data: err });
             } else {
-              let token = jwt.sign({ data: result }, 'secret')
-              res.send({ status: 1, data: result, token: token });
             }
           })
       }

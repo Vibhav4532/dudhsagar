@@ -22,7 +22,7 @@ export class VehicleaddComponent implements OnInit {
   }
   onSubmit(form: NgForm) {
     console.log("Called OnSubmit. Trying to Register...")
-    this._api.postTypeRequest('user/vehicle', form.value).subscribe((res: any) => {
+    this._api.postTypeRequest('user/vehicleadd', form.value).subscribe((res: any) => {
       if (res.status) {
         console.log(res);
         this._router.navigate(['adminhome']);

@@ -1,23 +1,20 @@
 <div class='row m-0 w-100'>
-    <div class='col-md-4 offset-4 mt-5' *ngIf='isLogin'>
-      <h4>Register</h4>
-      <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
-        <div class='form-group'>
-          <input class='form-control' type="vehcleid" name="vehicleid" placeholder="VehicleId" ngModel>
-        </div>
-        <div class='form-group'>
-          <input class='form-control' type="vehicleno" name="vehicleno" placeholder="VehicleNo" ngModel>
-        </div>
-        <div class='form-group'>
-          <input class='form-control' type="model" name="model" placeholder="Model" ngModel>
-        </div>
-        <div class='form-group'>
-          <input class='form-control' type="seats" name="seats" placeholder="Seats" ngModel>
-        </div>
-        <input class='btn btn-outline-info' type="submit" value="Register">
-      </form>
-    </div>
-    <div class='col-md-4 offset-4 mt-5' *ngIf='!isLogin'>
-      <h5>first do admin login  </h5>
-    </div>
+  <div class='col-md-4 offset-4 mt-5' *ngIf='isLogin'>
+    <h4>Register</h4>
+    <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
+      <div class='form-group'>
+        <input class='form-control' type="text" name="vehicleNo" placeholder="VehicleNo" ngModel>
+      </div>
+      <div class='form-group'>
+        <input class='form-control' type="text" name="model" placeholder="Model" ngModel>
+      </div>
+      <div class='form-group'>
+        <input class='form-control' type="text" name="seats" placeholder="Seats" ngModel>
+      </div>
+      <input class='btn btn-outline-info' type="submit" value="Register">
+    </form>
   </div>
+  <div class='col-md-4 offset-4 mt-5' *ngIf='!isLogin'>
+    <h5>first do admin login </h5>
+  </div>
+</div>
