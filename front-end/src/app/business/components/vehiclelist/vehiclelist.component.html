@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Vehicle List</h2>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>VehicleId</th>
+                    <th>VehicleNo</th>
+                    <th>Model</th>
+                    <th>Seats</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vehicle of vehicles">
+
+                    <td>{{vehicle.VehicleId}}</td>
+                    <td>{{vehicle.VehicleNo}}</td>
+                    <td>{{vehicle.Model}}</td>
+                    <td>{{vehicle.Seats}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

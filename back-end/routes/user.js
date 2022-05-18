@@ -167,4 +167,27 @@ router.post('/vehicleadd', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
+
+router.post('/vehiclelist', async function (req, res, next) {
+  try {
+    let { UserRole } = req.body;
+    if (UserRole == "ADMIN") {
+      const vehiclesQuery = `SELECT VehicleNo,Model,Seats From Vehicles `
+      con.query(vehiclesQuery, [], (err, result, fields) => {
+        console.log("result=" + result + err);
+        if (err) {
+          console.log('error');
+          res.status(500).send({ status: 0, data: err });
+        } else {
+          console.log('success');
+          res.status(200).send({ status: 1, data: result });
+        }
+      });
+    } else {
+      res.status(500).send({ status: 0 });
+    }
+  } catch (error) {
+    res.send({ status: 0, error: error });
+  }
+});
 module.exports = router;
