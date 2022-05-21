@@ -30,8 +30,8 @@ export class BookingAddComponent implements OnInit {
       // for directions to extract the dateTime below.
       console.log(form.controls["triptime"].value);
       var dateTime = form.controls["triptime"].value;
-      console.log(form.controls["seats"].value);
-      var seats = 6;
+      //console.log(form.value.seats);
+      var seats = form.controls["seats"].value;
       this._api.postTypeRequest('book/addbooking',
         { 'email': userEmail, 'dateTime': dateTime, 'seats': seats })
         .subscribe((res: any) => {
@@ -43,5 +43,6 @@ export class BookingAddComponent implements OnInit {
           }
         });
     }
+    this._router.navigate(['/bookinglist']);
   }
 }

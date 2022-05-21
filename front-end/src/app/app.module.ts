@@ -24,6 +24,8 @@ import { DriverlistComponent } from './business/components/driverlist/driverlist
 import { PaymentComponent } from './business/components/payment/payment.component';
 import { VehicleaddComponent } from './business/components/vehicleadd/vehicleadd.component';
 import { VehiclelistComponent } from './business/components/vehiclelist/vehiclelist.component';
+import { HeaderComponent } from './auth/components/header/header.component';
+import { LogoutComponent } from './auth/components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { VehiclelistComponent } from './business/components/vehiclelist/vehiclel
     PaymentComponent,
     VehicleaddComponent,
     VehiclelistComponent,
+    HeaderComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

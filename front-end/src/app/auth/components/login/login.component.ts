@@ -14,14 +14,14 @@ export class LoginComponent implements OnInit {
   errorMessage: any
   constructor(
     private _api: ApiService,
-    private _auth: AuthService,
+    private _auth: AuthService, 
     private _router: Router
   ) { }
   ngOnInit() {
     this.isUserLogin();
   }
   onSubmit(form: NgForm) {
-    // console.log('Your form data : ', form.value);
+     console.log('Your form data : ', form.value);
     // console.log('Your form uername : ', form.value.username);
     // console.log('Your form pwd : ', form.value.password);
     if (form.value.username?.length == 0 || form.value.password?.length == 0) {
@@ -42,14 +42,17 @@ export class LoginComponent implements OnInit {
         } else {
           this._router.navigate(['/home']);
         }
-
+        this._auth.afterlogin(form.value.username);
+        this.errorMessage='';
       } else {
+        this._auth.afterlogout();
         this.isLogin = false;
         this.errorMessage = "Failed to login. Incorrect username or password";
       }
     }, err => {
+      this._auth.afterlogout();
       this.isLogin = false;
-      this.errorMessage = "Failed to login. Incorrect username or password. err=" + err.message;
+      this.errorMessage = "Failed to login. Incorrect username or password.";
     })
   }
   isUserLogin() {
@@ -59,9 +62,5 @@ export class LoginComponent implements OnInit {
     } else {
       this.isLogin = false;
     }
-  }
-  logout() {
-    this._auth.clearStorage()
-    this._router.navigate(['']);
   }
 }

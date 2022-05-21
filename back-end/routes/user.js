@@ -140,7 +140,7 @@ router.post('/driverlist', async function (req, res, next) {
 
 router.post('/vehicleadd', async function (req, res, next) {
   try {
-    let { vehicleNo, model, seats } = req.body;
+    let { vehicleNo, model, seats, licenceNo } = req.body;
     const checkVehicleNo = `Select VehicleNo FROM Vehicles WHERE VehicleNo= ?`
     con.query(checkVehicleNo, [vehicleNo], (err, result, fields) => {
       console.log("result=" + result);
@@ -159,6 +159,20 @@ router.post('/vehicleadd', async function (req, res, next) {
             if (err) {
               res.send({ status: 0, data: err });
             } else {
+              vehicleId = result.insertId;
+              console.log("Vehicle ID = " + vehicleId)
+              console.log("Licence No = " + licenceNo)
+              const sql = `Insert Into DriverVehicle (VehicleId,LicenceNo) VALUES (?,?)`
+              con.query(
+                sql, [vehicleId, licenceNo],
+                (err, result, fields) => {
+                  console.log("err=" + err);
+                  if (err) {
+                    res.send({ status: 0, data: err });
+                  } else {
+                  }
+                }
+              )
             }
           })
       }

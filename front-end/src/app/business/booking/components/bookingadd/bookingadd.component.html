@@ -3,7 +3,7 @@
   <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
     <input type="datetime-local" id="triptime" name="triptime" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
       min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
-    <select formControlName="seats" id="seats" class="form-control" ngModel>
+    <select id="seats" name="seats" class="form-control" ngModel>
       <option disabled>Select Number of seats</option>
       <option *ngFor="let seats of numSeatsOptions">{{seats}}</option>
     </select>

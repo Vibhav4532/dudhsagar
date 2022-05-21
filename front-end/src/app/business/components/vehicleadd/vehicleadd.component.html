@@ -11,6 +11,10 @@
       <div class='form-group'>
         <input class='form-control' type="text" name="seats" placeholder="Seats" ngModel>
       </div>
+      <select name="licenceNo" class="form-control" ngModel>
+        <option disabled>Select Driver</option>
+        <option *ngFor="let driver of drivers" [ngValue]="driver.LicenceNo">{{driver.FirstName + ' '+ driver.LastName}}</option>
+      </select>
       <input class='btn btn-outline-info' type="submit" value="Register">
     </form>
   </div>

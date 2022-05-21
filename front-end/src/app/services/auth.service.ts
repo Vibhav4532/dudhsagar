@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
   constructor() { }
 
   getUserDetails() {
@@ -22,5 +23,12 @@ export class AuthService {
   }
   clearStorage() {
     localStorage.clear();
+  }
+
+  afterlogin(name: string) {
+    this.getLoggedInName.emit(name);
+  }
+  afterlogout() {
+    this.getLoggedInName.emit("SignIn");
   }
 }

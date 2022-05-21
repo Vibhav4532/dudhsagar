@@ -15,11 +15,15 @@ import { DriveraddComponent } from './business/components/driveradd/driveradd.co
 import { DriverlistComponent } from './business/components/driverlist/driverlist.component';
 import { VehicleaddComponent } from './business/components/vehicleadd/vehicleadd.component';
 import { VehiclelistComponent } from './business/components/vehiclelist/vehiclelist.component';
+import { HeaderComponent } from './auth/components/header/header.component';
+import { LogoutComponent } from './auth/components/logout/logout.component';
 
 
 
 const routes: Routes = [
+  { path: 'header', component: HeaderComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'gallery', component: GalleryComponent },
@@ -32,7 +36,7 @@ const routes: Routes = [
   {path:'driverlist',component:DriverlistComponent},
   {path:'vehicleadd',component:VehicleaddComponent},
   {path:'vehiclelist',component:VehiclelistComponent},
-  { path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },];
+  {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
