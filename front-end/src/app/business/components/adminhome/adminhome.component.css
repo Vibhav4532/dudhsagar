@@ -1,0 +1,9 @@
+.mat-button {
+    margin: 8px 8px 8px 0;
+  }
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }

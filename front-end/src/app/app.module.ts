@@ -26,6 +26,8 @@ import { VehicleaddComponent } from './business/components/vehicleadd/vehicleadd
 import { VehiclelistComponent } from './business/components/vehiclelist/vehiclelist.component';
 import { HeaderComponent } from './auth/components/header/header.component';
 import { LogoutComponent } from './auth/components/logout/logout.component';
+import { VerifyEmailComponent } from './auth/components/verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { LogoutComponent } from './auth/components/logout/logout.component';
     VehiclelistComponent,
     HeaderComponent,
     LogoutComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

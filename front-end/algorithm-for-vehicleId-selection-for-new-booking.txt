@@ -1,0 +1,30 @@
+1 -> 4 -> 5 -> 7 -> 8
+
+previousVehicleTable {key = "vehicle", previousVehicleId}
+5
+
+select max(vehicleId) as maxx, min(vehicleId) as minn
+from vehicles;
+
+select previousVehicleId 
+from previousVehicleTable 
+whete key = "vehicle";
+
+if (previousVehicleId == maxx) {
+    currentBbookingVehicleId  = minn;
+    update previousVehicleTable 
+    set previousVehicleId = minn;
+    return currentBbookingVehicleId;
+} else {
+    currentBookingVehicleId =  select vehicleId 
+    from vehicles 
+    where vehicleId > previousVehicleId 
+    sort by vehicleId
+    limit 1;
+
+    update previousVehicleTable 
+    set previousVehicleId = currentBookingVehicleId 
+
+    return currentBookingVehicleId;
+}
+

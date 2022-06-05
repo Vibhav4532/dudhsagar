@@ -15,54 +15,83 @@ const con = mysql.createConnection({
 
 router.post('/getbookings', async function (req, res, next) {
   try {
-    let { email, Userrole  } = req.body;
+    let { email, Userrole } = req.body;
     console.log("email=" + email + "  Userrole=" + Userrole)
-        if(Userrole=="ADMIN"){
-          const getbookingsquery=`SELECT * From Bookings`    
-          con.query(getbookingsquery, [], (err, result, fields) => {
-            console.log("result="+ result + err);
-            if(err){ 
-              res.status(500).send({ status: 0, data: err });
-            } else{
-              res.status(200).send({ status: 1, data: result});
-            }
-          });
+    if (Userrole == "ADMIN") {
+      const getbookingsquery = `SELECT * From Bookings`
+      con.query(getbookingsquery, [], (err, result, fields) => {
+        console.log("result=" + result + err);
+        if (err) {
+          res.status(500).send({ status: 0, data: err });
         } else {
-          const getbookingsquery= `SELECT * From Bookings WHERE UserEmail= ? `
-          con.query(getbookingsquery, [email], (err, result, fields) => {
-            console.log("result="+ result + err);
-            if(err){ 
-              res.status(500).send({ status: 0, data: err });
-            } else{
-              res.status(200).send({ status: 1, data: result});
-            }
-          });
+          res.status(200).send({ status: 1, data: result });
         }
-} catch (error) {
+      });
+    } else {
+      const getbookingsquery = `SELECT * From Bookings WHERE UserEmail= ? `
+      con.query(getbookingsquery, [email], (err, result, fields) => {
+        console.log("result=" + result + err);
+        if (err) {
+          res.status(500).send({ status: 0, data: err });
+        } else {
+          res.status(200).send({ status: 1, data: result });
+        }
+      });
+    }
+  } catch (error) {
     res.send({ status: 0, error: error });
   }
 });
 
-router.post('/addbooking', async function  (req , res , next){
+router.post('/addbooking', async function (req, res, next) {
   try {
-    let { email,dateTime, seats } = req.body;
-    console.log("email=" + email );
-    let transactionId =uuidv4();
-    console.log("email=" + email + "transationId=" + transactionId + "dateTime=" + dateTime + "seats=" +seats )
-    const addbookingsquery=`Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats) VALUES ( ?,?,?,?)`   
-    con.query(addbookingsquery, [email, transactionId, dateTime, seats], (err, result, fields) => {  
-      console.log("result="+ result + err);
-      if (err){ 
+    let { email, dateTime, seats } = req.body;
+    console.log("email=" + email);
+    let transactionId = uuidv4();
+    let maxMin = getMaxMinVehicleIdsFromDb();
+    // let [ maxx, minn] = parse maxMin;
+    console.log("MaxMin = ", maxMin);
+    let lastBookedVehicle = getLastBookedVehicleIdFromDb();
+    let currentVehicleIdForBooking = getCurrentVehicleIdForBooking(maxx, minn, lastBookedVehicle);
+    console.log("email=" + email + "transationId=" + transactionId + "dateTime=" + dateTime + "seats=" + seats)
+    const addbookingsquery = `Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats,VehicleId) VALUES (?,?,?,?,?)`
+    con.query(addbookingsquery, [email, transactionId, dateTime, seats, vehicleId], (err, result, fields) => {
+      console.log("result=" + result + err);
+      if (err) {
         res.status(500).send({ status: 0, data: err });
-      } 
-      else{
-        res.status(200).send({ status: 1, data: result});
+      }
+      else {
+        res.status(200).send({ status: 1, data: result });
       }
 
     });
- } catch (error) {
-   console.log(error=error);
-  res.send({ status: 0, error: error });
- }
+  } catch (error) {
+    console.log(error = error);
+    res.send({ status: 0, error: error });
+  }
 });
+
+function getMaxMinVehicleIdsFromDb() {
+  const getMaxMinVehicleIds = `SELECT MAX(VehicleId), MIN(VehicleId) FROM Vehicles`
+  con.query(getMaxMinVehicleIds, [], (err, result, fields) => {
+    console.log("result=" + result + err);
+    return result;
+  });
+}
+
+function getLastBookedVehicleIdFromDb() {
+  const getLastBookedVehicle = `SELECT VehicleId FROM LastBookedVehicle`
+  con.query(getLastBookedVehicle, [], (err, result, fields) => {
+    console.log("result=" + result + err);
+    return result;
+  });
+}
+
+function getCurrentVehicleIdForBooking(maxx, minn, lastBookedVehicle) {
+  const getCurrentvehicleIdForBooking = `SELECT VehicleId FROM CurrentVehicleBooking`
+  con.query(getCurrentVehicleBooking, [], (err, result, fields) => {
+    console.log("result=" + result + err);
+    return result;
+  });
+}
 module.exports = router;

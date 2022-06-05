@@ -6,6 +6,6 @@
 	</section>
 </main>
 <div class="button-row">
-	<button mat-button [routerLink]="'/bookinglist'" *ngIf=this.isLogin>View Bookings</button>
-	<button mat-button [routerLink]="'/bookingadd'" *ngIf=this.isLogin>Add Booking</button>
+	<button mat-button input class='btn btn-outline-info'[routerLink]="'/bookinglist'" *ngIf=this.isLogin>View Bookings</button>
+    <button mat-button input class='btn btn-outline-info'[routerLink]="'/bookingadd'" *ngIf=this.isLogin>Add Booking</button>
 </div>
