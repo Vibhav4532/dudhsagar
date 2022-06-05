@@ -51,6 +51,14 @@ Primary key (BookingId),
 FOREIGN KEY (UserEmail) REFERENCES users(UserEmail)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE LastBookedVehicle(
+dummyKey varchar(100),
+vehicleId int(11)NOT NULL,
+FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+Insert into LastBookedVehicle(dummyKey, vehicleId) values("dummyVehicleKey", 1);
+
 -- alter table users add column userrole varchar(255) after password;
 
 -- alter table users drop UserRole; 
