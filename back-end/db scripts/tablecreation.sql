@@ -1,8 +1,9 @@
 
 USE dudhsagar;
 DROP Table IF EXISTS DriverVehicle;
-DROP TABLE IF EXISTS Vehicles;
+DROP Table IF EXISTS LastBookedVehicle;
 DROP TABLE IF EXISTS Bookings;
+DROP TABLE IF EXISTS Vehicles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS Drivers;
 
@@ -46,8 +47,11 @@ UserEmail  varchar(255) NOT NULL,
 TransactionId varchar(36) NOT NULL,
 `DateTime` DATETIME NOT NULL,
 Seats int(11) NOT NULL,
+vehicleId int(11)NOT NULL,
+
 Primary key (BookingId),
-FOREIGN KEY (UserEmail) REFERENCES users(UserEmail)
+FOREIGN KEY (UserEmail) REFERENCES users(UserEmail),
+FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE LastBookedVehicle(
@@ -55,8 +59,6 @@ dummyKey varchar(100),
 vehicleId int(11)NOT NULL,
 FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-Insert into LastBookedVehicle(dummyKey, vehicleId) values("dummyVehicleKey", 1);
 
 -- alter table users add column userrole varchar(255) after password;
 
@@ -76,10 +78,11 @@ flush privileges;
 -- delete from users where useremail = 'swapnil@gmail.com';
 -- delete from users where useremail = 'akshay@gmail.com';
 
-Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('swapnil@gmail.com',uuid(), '2022-07-30 12:40:00',2);
+/*Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('swapnil@gmail.com',uuid(), '2022-07-30 12:40:00',2);
 Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('akshay@gmail.com',uuid(), '2022-06-20 10:20:00',4);
 Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('gaonkarsanjay80@gmail.com',uuid(), '2022-04-26 12:55:00',8);
 Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('akshay@gmail.com',uuid(), '2022-05-10 12:30:00',7);
+*/
 
 SELECT * From Bookings ;
 delete from Bookings;
@@ -88,6 +91,8 @@ SELECT * From vehicles ;
 Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA1234', 'Trax',7);
 Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA2345', 'Bolero',6);
 Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA3456', 'Trax',7);
+
+Insert into LastBookedVehicle(dummyKey, vehicleId) values("dummyVehicleKey", 1);
 
 commit;
 -- rollback;
