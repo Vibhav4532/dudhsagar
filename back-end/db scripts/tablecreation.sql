@@ -40,7 +40,6 @@ FOREIGN KEY (VehicleId) references Vehicles(VehicleId),
 FOREIGN KEY (LicenceNo) references Drivers(LicenceNo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
  CREATE TABLE Bookings (
  BookingId int(11) NOT NULL AUTO_INCREMENT,
 UserEmail  varchar(255) NOT NULL,
@@ -65,7 +64,7 @@ Insert into LastBookedVehicle(dummyKey, vehicleId) values("dummyVehicleKey", 1);
 
 select * from users;
 
-insert into users values ('Admin','admin99@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'ADMIN' );
+insert into users values ('Admin','admin@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'ADMIN' );
 insert into users values ('Swapnil','swapnil@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
 insert into users values ('Akshay','akshay@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
 insert into users values ('Sanjay','gaonkarsanjay80@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
@@ -84,5 +83,11 @@ Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('akshay@g
 
 SELECT * From Bookings ;
 delete from Bookings;
+
+SELECT * From vehicles ;
+Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA1234', 'Trax',7);
+Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA2345', 'Bolero',6);
+Insert into vehicles (VehicleNo,Model,Seats) values('GA01AA3456', 'Trax',7);
+
 commit;
 -- rollback;
