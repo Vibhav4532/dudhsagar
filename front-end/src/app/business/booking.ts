@@ -6,4 +6,5 @@ export interface Booking {
     Seats: number;
     TransactionId: number;
     UserEmail: string;
+    VehicleId: number;
 }

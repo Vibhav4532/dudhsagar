@@ -47,7 +47,7 @@ UserEmail  varchar(255) NOT NULL,
 TransactionId varchar(36) NOT NULL,
 `DateTime` DATETIME NOT NULL,
 Seats int(11) NOT NULL,
-vehicleId int(11)NOT NULL,
+VehicleId int(11)NOT NULL,
 
 Primary key (BookingId),
 FOREIGN KEY (UserEmail) REFERENCES users(UserEmail),

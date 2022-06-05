@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'home', component: HomeComponent },
   { path: 'bookinglist', component: BookingListComponent },
+  { path: 'redirectBookinglist', redirectTo: '/bookinglist' , pathMatch: 'full' },
   { path: 'bookingadd', component: BookingAddComponent },
   { path: 'adminhome', component: AdminhomeComponent },
   {path:'driveradd',component:DriveraddComponent},
@@ -40,7 +41,7 @@ const routes: Routes = [
   {path:'vehiclelist',component:VehiclelistComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'verify-email',component:VerifyEmailComponent},
-  {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent },];
+  {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

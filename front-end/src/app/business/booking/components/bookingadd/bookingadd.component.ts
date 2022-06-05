@@ -43,6 +43,6 @@ export class BookingAddComponent implements OnInit {
           }
         });
     }
-    this._router.navigate(['/bookinglist']);
+    this._router.navigate(['/redirectBookinglist']);
   }
 }

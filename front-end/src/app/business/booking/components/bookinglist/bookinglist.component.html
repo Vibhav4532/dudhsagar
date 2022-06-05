@@ -9,11 +9,12 @@
     <table class="table table-striped"text-color="white">
       <thead>
         <tr>
-          <th>BookingId</th>
+          <th>Booking ID</th>
           <th>Date And Time</th>
           <th>Seats</th>
-          <th>TransactionId</th>
-          <th>UserEmail</th>
+          <th>Transaction ID</th>
+          <th>User Email</th>
+          <th>Vehicle ID</th>
         </tr>
       </thead>
       <tbody>
@@ -24,6 +25,8 @@
           <td>{{booking.Seats}}</td>
           <td>{{booking.TransactionId}}</td>
           <td>{{booking.UserEmail}}</td>
+          <td>{{booking.VehicleId}}</td>
+
           <!--<td><button (click)="deleteBooking(booking.BookingId)" class="btn btn-danger">Delete</button>
                 <button (click)="updateBooking(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Update Details</button>
                 <button (click)="bookingDetails(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Ticket Details</button>
