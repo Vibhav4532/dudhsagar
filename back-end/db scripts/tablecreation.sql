@@ -48,7 +48,9 @@ TransactionId varchar(36) NOT NULL,
 `DateTime` DATETIME NOT NULL,
 Seats int(11) NOT NULL,
 VehicleId int(11)NOT NULL,
-
+OrderId varchar(255) NULL,
+PaymentId varchar(255) NULL,
+Signature varchar(500) NULL,
 Primary key (BookingId),
 FOREIGN KEY (UserEmail) REFERENCES users(UserEmail),
 FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
@@ -63,6 +65,8 @@ FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
 -- alter table users add column userrole varchar(255) after password;
 
 -- alter table users drop UserRole; 
+
+-- alter table Bookings add column OrderId varchar(255) NULL,add column PaymentId varchar(255) NULL,add column Signature varchar(500) NULL;
 
 select * from users;
 
@@ -84,7 +88,7 @@ Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('gaonkars
 Insert into Bookings (UserEmail,TransactionId,`DateTime`,Seats) values('akshay@gmail.com',uuid(), '2022-05-10 12:30:00',7);
 */
 
-SELECT * From Bookings ;
+SELECT * From Bookings order by  BookingId desc;
 delete from Bookings;
 
 SELECT * From vehicles ;

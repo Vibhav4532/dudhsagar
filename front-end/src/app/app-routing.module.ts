@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'bookinglist', component: BookingListComponent },
   { path: 'redirectBookinglist', redirectTo: '/bookinglist' , pathMatch: 'full' },
   { path: 'bookingadd', component: BookingAddComponent },
+  { path: 'redirectBookingadd', redirectTo: '/bookingadd' , pathMatch: 'full' },
   { path: 'adminhome', component: AdminhomeComponent },
   {path:'driveradd',component:DriveraddComponent},
   {path:'driverlist',component:DriverlistComponent},
