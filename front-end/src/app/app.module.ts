@@ -29,6 +29,7 @@ import { LogoutComponent } from './auth/components/logout/logout.component';
 import { VerifyEmailComponent } from './auth/components/verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
+import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { BookingreportComponent } from './business/report/components/bookingrepo
     VerifyEmailComponent,
     ForgotPasswordComponent,
     BookingreportComponent,
+    BookingsearchComponent,
   ],
   imports: [
     BrowserModule,

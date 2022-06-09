@@ -1,0 +1,73 @@
+<div class="panel panel-primary text-dark">
+  <div class="panel-heading">
+    <h2>Booking List</h2>
+  </div>
+<div class="text-dark"> 
+        <h5>Filter</h5>
+    </div>
+    <div class="container text-dark">
+        <form #myform="ngForm" (ngSubmit)="filter(myform)">
+            <div class="row">
+              <div class='form-group col'>
+                Date From: 
+              </div>
+              <div class='form-group col'>
+                  <input type="datetime-local" id="filterDateFrom" name="filterDateFrom" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
+                      min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
+              </div>
+              <div class='form-group col'>
+                Date To: 
+              </div>
+              <div class='form-group col'>
+                  <input type="datetime-local" id="filterDateTo" name="filterDateTo" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
+                  min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
+              </div>
+              <div class='form-group col'>
+                Vehicle ID: 
+              </div>
+              <div class='form-group col'>
+                  <input class='form-control' type="text" name="filterVehicleId" placeholder="Vehicle Id" pattern="[0-9]+" required ngModel />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                  <input class='btn btn-outline-info' type="submit" value="Filter">
+              </div>
+            </div>
+        </form>
+    </div>
+  
+      <div class="panel-body">
+      <table class="table table-striped"text-color="white">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Date And Time</th>
+            <th>Seats</th>
+            <th>Transaction ID</th>
+            <th>User Email</th>
+            <th>Vehicle ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings ">
+  
+            <td>{{booking.BookingId}}</td>
+            <td>{{booking.DateTime}}</td>
+            <td>{{booking.Seats}}</td>
+            <td>{{booking.TransactionId}}</td>
+            <td>{{booking.UserEmail}}</td>
+            <td>{{booking.VehicleId}}</td>
+  
+            <!--<td><button (click)="deleteBooking(booking.BookingId)" class="btn btn-danger">Delete</button>
+                  <button (click)="updateBooking(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Update Details</button>
+                  <button (click)="bookingDetails(booking.BookingId)" class="btn btn-info" style="margin-left: 10px">Ticket Details</button>
+              </td> -->
+          </tr>
+        </tbody>
+      </table>
+  
+    </div>
+  
+    <div > <button mat-button [routerLink]="'/home'" > Home </button></div>
+  </div>

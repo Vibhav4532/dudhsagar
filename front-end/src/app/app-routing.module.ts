@@ -20,6 +20,7 @@ import { LogoutComponent } from './auth/components/logout/logout.component';
 import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth/components/verify-email/verify-email.component';
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
+import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
 
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'bookinglist', component: BookingListComponent },
   { path: 'bookingreport', component: BookingreportComponent },
+  { path: 'bookingsearch', component: BookingsearchComponent },
   { path: 'redirectBookinglist', redirectTo: '/bookinglist' , pathMatch: 'full' },
   { path: 'bookingadd', component: BookingAddComponent },
   { path: 'redirectBookingadd', redirectTo: '/bookingadd' , pathMatch: 'full' },
