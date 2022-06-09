@@ -34,7 +34,7 @@ export class BookingsearchComponent implements OnInit {
       var userRole = userDetails[0].Userrole;
       console.log("Email="+userEmail);
       console.log("Role="+userRole);
-      this._api.postTypeRequest('report/getbookings',
+      this._api.postTypeRequest('book/searchbookings',
         {  'email': userEmail, 'userRole': userRole })
         .subscribe((res: any) => {
           console.log("res.status=" + res.status);
@@ -62,9 +62,10 @@ export class BookingsearchComponent implements OnInit {
 
     //console.log(form.value.seats);
     var filterVehicleId = form.controls["filterVehicleId"].value;
+    var filterEmail = form.controls["filterEmail"].value;
 
-    this._api.postTypeRequest('report/getbookings',
-        { 'email': userEmail, 'userRole': userRole, 'filterDateFrom':filterDateFrom,'filterDateTo':filterDateTo, 'filterVehicleId':filterVehicleId })
+    this._api.postTypeRequest('book/searchbookings',
+        { 'email': userEmail, 'userRole': userRole, 'filterDateFrom':filterDateFrom,'filterDateTo':filterDateTo, 'filterVehicleId':filterVehicleId, 'filterEmail':filterEmail })
         .subscribe((res: any) => {
           console.log("res.status=" + res.status);
           if (res.status) {
