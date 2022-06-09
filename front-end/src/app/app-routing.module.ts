@@ -19,10 +19,12 @@ import { HeaderComponent } from './auth/components/header/header.component';
 import { LogoutComponent } from './auth/components/logout/logout.component';
 import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth/components/verify-email/verify-email.component';
+import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
 
 
 
 const routes: Routes = [
+  { path: 'base', redirectTo: '/' , pathMatch: 'full' },
   { path: 'header', component: HeaderComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
@@ -32,6 +34,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'home', component: HomeComponent },
   { path: 'bookinglist', component: BookingListComponent },
+  { path: 'bookingreport', component: BookingreportComponent },
   { path: 'redirectBookinglist', redirectTo: '/bookinglist' , pathMatch: 'full' },
   { path: 'bookingadd', component: BookingAddComponent },
   { path: 'redirectBookingadd', redirectTo: '/bookingadd' , pathMatch: 'full' },
