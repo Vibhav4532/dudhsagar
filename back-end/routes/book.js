@@ -13,13 +13,13 @@ const con = mysql.createConnection({
   database: "dudhsagar"
 });
 
-const Razorpay = require('razorpay');
+// const Razorpay = require('razorpay');
 const keyId = 'rzp_test_r97NHyjpnaPOAn';
 const keySecret = '70VYZ8c8yY6vF0s0g9MNQgHu';
-var razorpayInstance = new Razorpay({
-  key_id: keyId,
-  key_secret: keySecret,
-});
+// var razorpayInstance = new Razorpay({
+//   key_id: keyId,
+//   key_secret: keySecret,
+// });
 
 router.post('/getbookings', async function (req, res, next) {
   try {
@@ -59,6 +59,7 @@ router.post('/addbooking', async function (req, res, next) {
     let transactionId = uuidv4();
     const getMaxMinVehicleIds = `SELECT MAX(VehicleId) as maxV, MIN(VehicleId) as minV FROM Vehicles`
 
+    // Get the min and max vehicleId from the Db.
     con.query(getMaxMinVehicleIds, [], (err, result, fields) => {
       if (err) {
         console.log("getMaxMinVehicleIds err=" + err);
@@ -70,6 +71,7 @@ router.post('/addbooking', async function (req, res, next) {
         console.log("minn = ", minn);
         let currentVehicleIdForBooking = maxx;
 
+        // Get the lastBookedVehicleId from the Db.
         const getLastBookedVehicle = `SELECT VehicleId FROM LastBookedVehicle`;
         con.query(getLastBookedVehicle, [], (err, result, fields) => {
           if (err) {
@@ -79,11 +81,11 @@ router.post('/addbooking', async function (req, res, next) {
             console.log("getLastBookedVehicle result=" + result);
             let lastBookedVehicle = result[0].VehicleId;
             console.log("lastBookedVehicle=" + lastBookedVehicle);
-
+            // If lastBookedVehicleId == maxx, we start the round robin from minn/beginning.
             if (lastBookedVehicle == maxx) {
               currentVehicleIdForBooking = minn;
               console.log("minn currentVehicleIdForBooking=" + currentVehicleIdForBooking);
-
+              // Insert the booking in the Db.
               const addbookingsquery = `Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats,VehicleId) VALUES (?,?,?,?,?)`
               con.query(addbookingsquery, [email, transactionId, dateTime, seats, currentVehicleIdForBooking], (err, bookingResult, fields) => {
                 if (err) {
@@ -92,7 +94,7 @@ router.post('/addbooking', async function (req, res, next) {
                 } else {
                   console.log("Bookings for lastBookedVehicle == maxx result=" + bookingResult);
                   console.log("Bookings for lastBookedVehicle != maxx bookingId=" + bookingResult.insertId);
-
+                  // Update thelastBookedVehicleId in the Db.
                   const updateLastBookedVehiclequery = `update LastBookedVehicle set VehicleId = ? where dummyKey = ?`
                   con.query(updateLastBookedVehiclequery, [currentVehicleIdForBooking, 'dummyVehicleKey'], (err, updresult, fields) => {
                     if (err) {
@@ -109,6 +111,7 @@ router.post('/addbooking', async function (req, res, next) {
               });
 
             } else {
+              // Get the next vehicleId from the Db for the new booking.
               const getCurrentvehicleIdForBooking = `SELECT VehicleId FROM Vehicles where VehicleId > ? order by VehicleId limit 1`
               con.query(getCurrentvehicleIdForBooking, [lastBookedVehicle], (err, result, fields) => {
                 if (err) {
@@ -117,7 +120,7 @@ router.post('/addbooking', async function (req, res, next) {
                 } else {
                   currentVehicleIdForBooking = result[0].VehicleId;
                   console.log("currentVehicleIdForBooking=" + currentVehicleIdForBooking);
-
+                  // Insert the new booking in the Db.
                   const addbookingsquery = `Insert Into Bookings (UserEmail, TransactionId, DateTime ,Seats,VehicleId) VALUES (?,?,?,?,?)`
                   con.query(addbookingsquery, [email, transactionId, dateTime, seats, currentVehicleIdForBooking], (err, bookingResult, fields) => {
                     console.log("addbookingsquery result=" + bookingResult + err);
@@ -128,7 +131,7 @@ router.post('/addbooking', async function (req, res, next) {
                     else {
                       console.log("Bookings for lastBookedVehicle != maxx result=" + bookingResult);
                       console.log("Bookings for lastBookedVehicle != maxx bookingId=" + bookingResult.insertId);
-
+                      // Update the lastBookedVehicleId in the Db.
                       const updateLastBookedVehiclequery = `update LastBookedVehicle set VehicleId = ? where dummyKey = ?`
                       con.query(updateLastBookedVehiclequery, [currentVehicleIdForBooking, 'dummyVehicleKey'], (err, updresult, fields) => {
                         if (err) {
@@ -160,66 +163,66 @@ router.post('/addbooking', async function (req, res, next) {
   }
 });
 
-router.post('/createOrder', async function (req, res, next) {
-  try {
-    let { amount, currency, receipt } = req.body;
-    var options = {
-      amount: req.body.amount,
-      currency: req.body.currency,
-      receipt: req.body.receipt,
+// router.post('/createOrder', async function (req, res, next) {
+//   try {
+//     let { amount, currency, receipt } = req.body;
+//     var options = {
+//       amount: req.body.amount,
+//       currency: req.body.currency,
+//       receipt: req.body.receipt,
 
-    };
-    console.log("Creating Order using razorPay");
+//     };
+//     console.log("Creating Order using razorPay");
 
-    razorpayInstance.orders.create(options, function (err, order) {
-      console.log("Created Order using razorPay");
+//     razorpayInstance.orders.create(options, function (err, order) {
+//       console.log("Created Order using razorPay");
 
-      if (err) {
-        console.log("createOrder err=" + JSON.stringify(err));
-        res.send({ status: 0, data: err });
-      } else {
-        console.log("createOrder order=" + order);
-        var payload = {
-          "order": order,
-          "key": keyId
-        };
-        res.send({ status: 200, data: payload });
-      }
+//       if (err) {
+//         console.log("createOrder err=" + JSON.stringify(err));
+//         res.send({ status: 0, data: err });
+//       } else {
+//         console.log("createOrder order=" + order);
+//         var payload = {
+//           "order": order,
+//           "key": keyId
+//         };
+//         res.send({ status: 200, data: payload });
+//       }
 
-    });
-    console.log("Out using razorPay");
+//     });
+//     console.log("Out using razorPay");
 
-  } catch (error) {
-    console.log("createOrder error =" + error);
-    res.send({ status: 0, error: error });
-  }
-});
+//   } catch (error) {
+//     console.log("createOrder error =" + error);
+//     res.send({ status: 0, error: error });
+//   }
+// });
 
-router.post('/updatebooking', async function (req, res, next) {
-  try {
-    let orderId = req.body.paymentObject.orderId;
-    let paymentId = req.body.paymentObject.paymentId;
-    let signature = req.body.paymentObject.signature;
-    let bookingId = req.body.paymentObject.bookingId;
+// router.post('/updatebooking', async function (req, res, next) {
+//   try {
+//     let orderId = req.body.paymentObject.orderId;
+//     let paymentId = req.body.paymentObject.paymentId;
+//     let signature = req.body.paymentObject.signature;
+//     let bookingId = req.body.paymentObject.bookingId;
 
-    console.log("bookingId=" + bookingId);
-    const updatebookingsquery = `update Bookings set OrderId=?, PaymentId=?, Signature=? where bookingId = ?`
-    con.query(updatebookingsquery, [orderId, paymentId, signature, bookingId], (err, result, fields) => {
-      if (err) {
-        console.log("updatebookingsquery err=" + err);
-        res.send({ status: 0, data: err });
-      } else {
-        console.log("updatebookingsquery success=" + result);
-        res.status(200).send({ status: 1, data: result });
-      }
-    }
-    );
+//     console.log("bookingId=" + bookingId);
+//     const updatebookingsquery = `update Bookings set OrderId=?, PaymentId=?, Signature=? where bookingId = ?`
+//     con.query(updatebookingsquery, [orderId, paymentId, signature, bookingId], (err, result, fields) => {
+//       if (err) {
+//         console.log("updatebookingsquery err=" + err);
+//         res.send({ status: 0, data: err });
+//       } else {
+//         console.log("updatebookingsquery success=" + result);
+//         res.status(200).send({ status: 1, data: result });
+//       }
+//     }
+//     );
 
-  } catch (error) {
-    console.log("updatebooking error =" + error);
-    res.send({ status: 0, error: error });
-  }
-});
+//   } catch (error) {
+//     console.log("updatebooking error =" + error);
+//     res.send({ status: 0, error: error });
+//   }
+// });
 
 router.post('/deletebooking', async function (req, res, next) {
   try {
