@@ -13,13 +13,13 @@ const con = mysql.createConnection({
   database: "dudhsagar"
 });
 
-// const Razorpay = require('razorpay');
+ const Razorpay = require('razorpay');
 const keyId = 'rzp_test_r97NHyjpnaPOAn';
 const keySecret = '70VYZ8c8yY6vF0s0g9MNQgHu';
-// var razorpayInstance = new Razorpay({
-//   key_id: keyId,
-//   key_secret: keySecret,
-// });
+ var razorpayInstance = new Razorpay({
+   key_id: keyId,
+   key_secret: keySecret,
+ });
 
 router.post('/getbookings', async function (req, res, next) {
   try {
@@ -163,66 +163,66 @@ router.post('/addbooking', async function (req, res, next) {
   }
 });
 
-// router.post('/createOrder', async function (req, res, next) {
-//   try {
-//     let { amount, currency, receipt } = req.body;
-//     var options = {
-//       amount: req.body.amount,
-//       currency: req.body.currency,
-//       receipt: req.body.receipt,
+router.post('/createOrder', async function (req, res, next) {
+  try {
+    let { amount, currency, receipt } = req.body;
+    var options = {
+      amount: req.body.amount,
+      currency: req.body.currency,
+      receipt: req.body.receipt,
 
-//     };
-//     console.log("Creating Order using razorPay");
+    };
+    console.log("Creating Order using razorPay");
 
-//     razorpayInstance.orders.create(options, function (err, order) {
-//       console.log("Created Order using razorPay");
+    razorpayInstance.orders.create(options, function (err, order) {
+      console.log("Created Order using razorPay");
 
-//       if (err) {
-//         console.log("createOrder err=" + JSON.stringify(err));
-//         res.send({ status: 0, data: err });
-//       } else {
-//         console.log("createOrder order=" + order);
-//         var payload = {
-//           "order": order,
-//           "key": keyId
-//         };
-//         res.send({ status: 200, data: payload });
-//       }
+      if (err) {
+        console.log("createOrder err=" + JSON.stringify(err));
+        res.send({ status: 0, data: err });
+      } else {
+        console.log("createOrder order=" + order);
+        var payload = {
+          "order": order,
+          "key": keyId
+        };
+        res.send({ status: 200, data: payload });
+      }
 
-//     });
-//     console.log("Out using razorPay");
+    });
+    console.log("Out using razorPay");
 
-//   } catch (error) {
-//     console.log("createOrder error =" + error);
-//     res.send({ status: 0, error: error });
-//   }
-// });
+  } catch (error) {
+    console.log("createOrder error =" + error);
+    res.send({ status: 0, error: error });
+  }
+});
 
-// router.post('/updatebooking', async function (req, res, next) {
-//   try {
-//     let orderId = req.body.paymentObject.orderId;
-//     let paymentId = req.body.paymentObject.paymentId;
-//     let signature = req.body.paymentObject.signature;
-//     let bookingId = req.body.paymentObject.bookingId;
+router.post('/updatebooking', async function (req, res, next) {
+  try {
+    let orderId = req.body.paymentObject.orderId;
+    let paymentId = req.body.paymentObject.paymentId;
+    let signature = req.body.paymentObject.signature;
+    let bookingId = req.body.paymentObject.bookingId;
 
-//     console.log("bookingId=" + bookingId);
-//     const updatebookingsquery = `update Bookings set OrderId=?, PaymentId=?, Signature=? where bookingId = ?`
-//     con.query(updatebookingsquery, [orderId, paymentId, signature, bookingId], (err, result, fields) => {
-//       if (err) {
-//         console.log("updatebookingsquery err=" + err);
-//         res.send({ status: 0, data: err });
-//       } else {
-//         console.log("updatebookingsquery success=" + result);
-//         res.status(200).send({ status: 1, data: result });
-//       }
-//     }
-//     );
+    console.log("bookingId=" + bookingId);
+    const updatebookingsquery = `update Bookings set OrderId=?, PaymentId=?, Signature=? where bookingId = ?`
+    con.query(updatebookingsquery, [orderId, paymentId, signature, bookingId], (err, result, fields) => {
+      if (err) {
+        console.log("updatebookingsquery err=" + err);
+        res.send({ status: 0, data: err });
+      } else {
+        console.log("updatebookingsquery success=" + result);
+        res.status(200).send({ status: 1, data: result });
+      }
+    }
+    );
 
-//   } catch (error) {
-//     console.log("updatebooking error =" + error);
-//     res.send({ status: 0, error: error });
-//   }
-// });
+  } catch (error) {
+    console.log("updatebooking error =" + error);
+    res.send({ status: 0, error: error });
+  }
+});
 
 router.post('/deletebooking', async function (req, res, next) {
   try {
