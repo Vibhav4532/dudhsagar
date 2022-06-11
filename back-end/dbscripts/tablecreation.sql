@@ -12,6 +12,7 @@ Username varchar(255) NOT NULL,
 UserEmail varchar(255) NOT NULL,
 `Password` varchar(255) NOT NULL,
 Userrole varchar(255) NOT NULL,
+ResetToken varchar(1024) ,
 PRIMARY KEY (UserEmail)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -70,10 +71,10 @@ FOREIGN KEY (VehicleId) REFERENCES vehicles(VehicleId)
 
 select * from users;
 
-insert into users values ('Admin','admin@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'ADMIN' );
-insert into users values ('Swapnil','swapnil@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
-insert into users values ('Akshay','akshay@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
-insert into users values ('Sanjay','gaonkarsanjay80@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
+insert into users (Username,UserEmail,Password,Userrole) values ('Admin','admin@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'ADMIN' );
+insert into users (Username,UserEmail,Password,Userrole) values ('Swapnil','swapnil@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
+insert into users (Username,UserEmail,Password,Userrole) values ('Akshay','akshay@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
+insert into users (Username,UserEmail,Password,Userrole) values ('Sanjay','gaonkarsanjay80@gmail.com','8f60c8102d29fcd525162d02eed4566b', 'CUSTOMER' );
 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
 

@@ -6,6 +6,9 @@ const router = express.Router();
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
+const crypto = require("crypto");
+const nodemailer = require("nodemailer");
+
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -204,4 +207,76 @@ router.post('/vehiclelist', async function (req, res, next) {
     res.send({ status: 0, error: error });
   }
 });
+
+router.post('/sendResetToken', async function (req, res, next) {
+  try {
+    let { email } = req.body;
+
+    const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
+    con.connect(function (err) {
+      if (err) throw err;
+
+      con.query(checkUserEmail, [email], (err, result, fields) => {
+
+        console.log("result=" + !result);
+
+        if (err) {
+          res.send({ status: 0, error: err });
+        }
+
+        if (result && result.length) {
+          var token = crypto.randomBytes(32).toString("hex")
+
+          const sql = `update users set ResetToken = ? where UserEmail= ?`
+          con.query(
+            sql, [token, email],
+            (err, result, fields) => {
+              console.log("err=" + err);
+              if (err) {
+                res.send({ status: 0, data: err });
+              } else {
+                const link = `http://localhost:4200/password-reset/${email}/${token}`;
+                sendEmail(email, "Password reset", link);
+
+              }
+            });
+
+
+          console.log('success');
+        } else {
+          res.send({ status: 0, error: 'Email Not Found' });
+        }
+      });
+    });
+  } catch (error) {
+    res.send({ status: 0, error: error });
+  }
+});
+
+
+
+const sendEmail = async (email, subject, text) => {
+
+  const transporter = nodemailer.createTransport({
+    //host: process.env.HOST,
+    service: 'gmail',
+    //port: 587,
+    //secure: true,
+    auth: {
+      user: 'tourdudhsagar',
+      pass: 'iiofsozlzyxguvkq',
+    },
+  });
+
+  await transporter.sendMail({
+    from: 'tourdudhsagar',
+    to: email,
+    subject: subject,
+    text: text,
+  });
+
+  console.log("email sent sucessfully");
+
+};
+
 module.exports = router;

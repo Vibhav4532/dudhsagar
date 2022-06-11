@@ -64,7 +64,7 @@ export class BookingreportComponent implements OnInit {
     var filterVehicleId = form.controls["filterVehicleId"].value;
 
     this._api.postTypeRequest('report/getbookings',
-        { 'email': userEmail, 'userRole': userRole, 'filterDateFrom':filterDateFrom,'filterDateTo':filterDateTo, 'filterVehicleId':filterVehicleId })
+        { 'email': userEmail, 'userRole': userRole, 'filterDateFrom':filterDateFrom,'filterDateTo':filterDateTo })
         .subscribe((res: any) => {
           console.log("res.status=" + res.status);
           if (res.status) {
