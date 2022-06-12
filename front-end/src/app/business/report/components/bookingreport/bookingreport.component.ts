@@ -4,8 +4,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from "rxjs";
-import { Booking } from 'src/app/business/booking';
 import { NgForm } from '@angular/forms';
+import { BookingReport } from 'src/app/business/bookingreport';
 
 @Component({
   selector: 'app-bookingreport',
@@ -14,7 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class BookingreportComponent implements OnInit {
 
-  bookings: Booking[] = [];
+  bookings: BookingReport[] = [];
   constructor(
     private _api: ApiService,
     private _auth: AuthService,
