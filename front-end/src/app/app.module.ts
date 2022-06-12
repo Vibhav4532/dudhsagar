@@ -30,6 +30,7 @@ import { VerifyEmailComponent } from './auth/components/verify-email/verify-emai
 import { ForgotPasswordComponent } from './auth/components/forgot-password/forgot-password.component';
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
 import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
+import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { BookingsearchComponent } from './business/booking/components/bookingsea
     ForgotPasswordComponent,
     BookingreportComponent,
     BookingsearchComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

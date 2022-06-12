@@ -21,6 +21,7 @@ import { ForgotPasswordComponent } from './auth/components/forgot-password/forgo
 import { VerifyEmailComponent } from './auth/components/verify-email/verify-email.component';
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
 import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
+import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
 
 
 
@@ -46,7 +47,7 @@ const routes: Routes = [
   {path:'vehicleadd',component:VehicleaddComponent},
   {path:'vehiclelist',component:VehiclelistComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
-  {path:'verify-email',component:VerifyEmailComponent},
+  {path:'reset-password/:email/:token',component:ResetPasswordComponent},
   {path: 'profile', canActivate: [AuthGuardService], component: ProfileComponent }];
 
 @NgModule({

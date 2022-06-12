@@ -15,6 +15,7 @@ const con = mysql.createConnection({
   password: "root",
   database: "dudhsagar"
 });
+
 /* GET users listing. */
 router.post('/register', async function (req, res, next) {
   try {
@@ -213,15 +214,16 @@ router.post('/sendResetToken', async function (req, res, next) {
     let { email } = req.body;
 
     const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
-    con.connect(function (err) {
-      if (err) throw err;
+//    con.query(function (err) {
+//      if (err) throw err;
 
       con.query(checkUserEmail, [email], (err, result, fields) => {
 
-        console.log("result=" + !result);
+        console.log("result=" + result);
 
         if (err) {
-          res.send({ status: 0, error: err });
+          throw err
+          //res.send({ status: 0, error: err });
         }
 
         if (result && result.length) {
@@ -235,20 +237,20 @@ router.post('/sendResetToken', async function (req, res, next) {
               if (err) {
                 res.send({ status: 0, data: err });
               } else {
-                const link = `http://localhost:4200/password-reset/${email}/${token}`;
-                sendEmail(email, "Password reset", link);
-
+                const link = `Click on this link to reset. http://localhost:4200/reset-password/${email}/${token}`;
+                sendEmail(email, "Password reset Request", link);
+                res.send({ status: 1, data: result });
               }
             });
-
 
           console.log('success');
         } else {
           res.send({ status: 0, error: 'Email Not Found' });
         }
       });
-    });
+//    });
   } catch (error) {
+    console.log(error)
     res.send({ status: 0, error: error });
   }
 });
@@ -275,8 +277,53 @@ const sendEmail = async (email, subject, text) => {
     text: text,
   });
 
-  console.log("email sent sucessfully");
+  console.log("email sent successfully");
 
 };
+
+router.post('/resetPassword', async function (req, res, next) {
+  try {
+    let { email, token, password } = req.body;
+
+    const checkUserEmail = `Select UserEmail, ResetToken FROM users WHERE UserEmail = ? and ResetToken = ?`;
+//    con.connect(function (err) {
+//      if (err) throw err;
+
+      con.query(checkUserEmail, [email, token], (err, result, fields) => {
+
+        console.log("result=" + result);
+
+        if (err) {
+          throw err
+        }
+
+        if (result && result.length) {
+          const hashed_password = md5(password.toString())
+
+          const sql = `update users set password = ? , ResetToken = null where UserEmail= ?`
+          con.query(
+            sql, [hashed_password, email],
+            (err, result, fields) => {
+              console.log("err=" + err);
+              if (err) {
+                res.send({ status: 0, data: err });
+              } else {
+                const link = `Your password has been reset successfully.`;
+                sendEmail(email, "Password reset Success", link);
+                res.send({ status: 1, data: result });
+              }
+            });
+
+          console.log('success');
+        } else {
+          res.send({ status: 0, error: 'Email Not Found' });
+        }
+      });
+//    });
+  } catch (error) {
+    console.log(error)
+    res.send({ status: 0, error: error });
+  }
+});
 
 module.exports = router;
