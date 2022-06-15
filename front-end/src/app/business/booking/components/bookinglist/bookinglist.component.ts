@@ -19,7 +19,11 @@ export class BookingListComponent implements OnInit {
     private _router: Router,
     private http: HttpClient) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1){
+  }
+  else{
+    this._router.navigate(['/login']);
+  }
     this.reloadData();
   }
 

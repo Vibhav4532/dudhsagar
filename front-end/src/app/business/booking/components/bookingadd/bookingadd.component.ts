@@ -28,6 +28,9 @@ export class BookingAddComponent implements OnInit {
   ngOnInit(): void { 
      if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1){
     }
+    else{
+      this._router.navigate(['/login']);
+    }
   }
 
  onSubmit(form: NgForm) {
