@@ -25,10 +25,12 @@ export class BookingAddComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+     if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1){
+    }
   }
 
-  onSubmit(form: NgForm) {
+ onSubmit(form: NgForm) {
     console.log("Inside Confirm click");
     var redirectPath = '/redirectBookinglist';
     if (this._auth.getUserDetails() != null && this._auth.getUserDetails()!.length > 1) {
@@ -164,6 +166,7 @@ export class BookingAddComponent implements OnInit {
         sessionStorage.removeItem('bookingObj')
       });
   }
+  
 
 
 }

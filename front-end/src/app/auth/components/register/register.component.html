@@ -1,6 +1,6 @@
 <div class='row m-0 w-100'>
   <div class='col-md-4 offset-4 mt-5' *ngIf='!isLogin'>
-    <h4>Register</h4>
+    <h4 class="text-dark">Register</h4>
     <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
       <div class='form-group'>
         <input class='form-control' type="text" name="username" placeholder="Username" ngModel>

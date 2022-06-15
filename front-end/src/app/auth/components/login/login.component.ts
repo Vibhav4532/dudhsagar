@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  isLogin: boolean = false
+  isLogin: boolean = false 
   errorMessage: any
   constructor(
     private _api: ApiService,
