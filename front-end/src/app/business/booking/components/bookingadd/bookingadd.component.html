@@ -1,12 +1,20 @@
 <div class='row m-0 w-100'>
 
   <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
-    <input type="datetime-local" id="triptime" name="triptime" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
-      min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
-    <select id="seats" name="seats" class="form-control" ngModel required>
-      <option disabled>Select Number of seats</option>
-      <option *ngFor="let seats of numSeatsOptions">{{seats}}</option>
-    </select>
-    <input class='btn btn-outline-info' type="submit" value="Confirm and Pay">
+    <div>
+      <span class="text-dark">Travel Date and Time</span>
+      <input type="datetime-local" id="triptime" name="triptime" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
+        min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
+    </div>
+    <div>
+      <span class="text-dark">Number Of Seats</span>
+      <select id="seats" name="seats" class="form-control SelectStyle" ngModel required>
+        <option disabled>Select Number of seats</option>
+        <option *ngFor="let seats of numSeatsOptions">{{seats}}</option>
+      </select>
+    </div>
+    <div>
+      <input class='btn btn-outline-info' type="submit" value="Confirm and Pay">
+    </div>
   </form>
 </div>
