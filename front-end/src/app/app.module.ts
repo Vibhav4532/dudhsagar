@@ -31,6 +31,7 @@ import { ForgotPasswordComponent } from './auth/components/forgot-password/forgo
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
 import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
 import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { ResetPasswordComponent } from './auth/components/reset-password/reset-p
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
     multi: true
-  }],
+  }, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
