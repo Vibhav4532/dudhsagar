@@ -22,11 +22,10 @@ export class BookingreportComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1)
-    {
+    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1) {
       this.reloadData();
     }
-    else{
+    else {
       this._router.navigate(['/login']);
     }
   }
@@ -38,10 +37,10 @@ export class BookingreportComponent implements OnInit {
       var userDetails = JSON.parse(userDetailsJsonObject!);
       var userEmail = userDetails[0].UserEmail;
       var userRole = userDetails[0].Userrole;
-      console.log("Email="+userEmail);
-      console.log("Role="+userRole);
+      console.log("Email=" + userEmail);
+      console.log("Role=" + userRole);
       this._api.postTypeRequest('report/getbookings',
-        {  'email': userEmail, 'userRole': userRole })
+        { 'email': userEmail, 'userRole': userRole })
         .subscribe((res: any) => {
           console.log("res.status=" + res.status);
           if (res.status) {
@@ -70,16 +69,16 @@ export class BookingreportComponent implements OnInit {
     var filterVehicleId = form.controls["filterVehicleId"].value;
 
     this._api.postTypeRequest('report/getbookings',
-        { 'email': userEmail, 'userRole': userRole, 'filterDateFrom':filterDateFrom,'filterDateTo':filterDateTo })
-        .subscribe((res: any) => {
-          console.log("res.status=" + res.status);
-          if (res.status) {
-            console.log(res);
-            console.log("res data=" + res.data);
-            this.bookings = res.data;
-            console.log(this.bookings);
-          }
-        });
+      { 'email': userEmail, 'userRole': userRole, 'filterDateFrom': filterDateFrom, 'filterDateTo': filterDateTo })
+      .subscribe((res: any) => {
+        console.log("res.status=" + res.status);
+        if (res.status) {
+          console.log(res);
+          console.log("res data=" + res.data);
+          this.bookings = res.data;
+          console.log(this.bookings);
+        }
+      });
   }
 
 }

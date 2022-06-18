@@ -20,11 +20,10 @@ export class DriverlistComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
-    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1)
-    {
+    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1) {
       this.reloadData();
     }
-    else{
+    else {
       this._router.navigate(['/login']);
     }
   }

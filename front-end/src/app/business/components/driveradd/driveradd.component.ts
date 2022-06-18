@@ -19,9 +19,9 @@ export class DriveraddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1){
+    if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1) {
     }
-    else{
+    else {
       this._router.navigate(['/login']);
     }
     this.isUserLogin();
