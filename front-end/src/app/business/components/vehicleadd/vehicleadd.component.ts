@@ -29,7 +29,7 @@ export class VehicleaddComponent implements OnInit {
       var userDetails = JSON.parse(userDetailsJsonObject!);
       var userRole = userDetails[0].Userrole;
       if (userRole == 'ADMIN') {
-        this._api.postTypeRequest('user/driverlist', { 'UserRole': userRole })
+        this._api.postTypeRequest('user/driverListForVehicleAdd', { 'UserRole': userRole })
           .subscribe((res: any) => {
             console.log("res.status=" + res.status);
             if (res.status) {

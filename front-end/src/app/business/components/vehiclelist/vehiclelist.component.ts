@@ -18,8 +18,13 @@ export class VehiclelistComponent implements OnInit {
     private _router: Router,
     private http: HttpClient) { }
 
-  ngOnInit(): void {
-    this.reloadData();
+  ngOnInit(): void {if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1)
+    {
+      this.reloadData();
+    }
+    else{
+      this._router.navigate(['/login']);
+    }
   }
 
   reloadData() {
