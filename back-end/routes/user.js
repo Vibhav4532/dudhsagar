@@ -236,41 +236,41 @@ router.post('/sendResetToken', async function (req, res, next) {
     let { email } = req.body;
 
     const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
-//    con.query(function (err) {
-//      if (err) throw err;
+    //    con.query(function (err) {
+    //      if (err) throw err;
 
-      con.query(checkUserEmail, [email], (err, result, fields) => {
+    con.query(checkUserEmail, [email], (err, result, fields) => {
 
-        console.log("result=" + result);
+      console.log("result=" + result);
 
-        if (err) {
-          throw err
-          //res.send({ status: 0, error: err });
-        }
+      if (err) {
+        throw err
+        //res.send({ status: 0, error: err });
+      }
 
-        if (result && result.length) {
-          var token = crypto.randomBytes(32).toString("hex")
+      if (result && result.length) {
+        var token = crypto.randomBytes(32).toString("hex")
 
-          const sql = `update users set ResetToken = ? where UserEmail= ?`
-          con.query(
-            sql, [token, email],
-            (err, result, fields) => {
-              console.log("err=" + err);
-              if (err) {
-                res.send({ status: 0, data: err });
-              } else {
-                const link = `Click on this link to reset. http://localhost:4200/reset-password/${email}/${token}`;
-                sendEmail(email, "Password reset Request", link);
-                res.send({ status: 1, data: result });
-              }
-            });
+        const sql = `update users set ResetToken = ? where UserEmail= ?`
+        con.query(
+          sql, [token, email],
+          (err, result, fields) => {
+            console.log("err=" + err);
+            if (err) {
+              res.send({ status: 0, data: err });
+            } else {
+              const link = `Click on this link to reset. http://localhost:4200/reset-password/${email}/${token}`;
+              sendEmail(email, "Password reset Request", link);
+              res.send({ status: 1, data: result });
+            }
+          });
 
-          console.log('success');
-        } else {
-          res.send({ status: 0, error: 'Email Not Found' });
-        }
-      });
-//    });
+        console.log('success');
+      } else {
+        res.send({ status: 0, error: 'Email Not Found' });
+      }
+    });
+    //    });
   } catch (error) {
     console.log(error)
     res.send({ status: 0, error: error });
@@ -308,40 +308,40 @@ router.post('/resetPassword', async function (req, res, next) {
     let { email, token, password } = req.body;
 
     const checkUserEmail = `Select UserEmail, ResetToken FROM users WHERE UserEmail = ? and ResetToken = ?`;
-//    con.connect(function (err) {
-//      if (err) throw err;
+    //    con.connect(function (err) {
+    //      if (err) throw err;
 
-      con.query(checkUserEmail, [email, token], (err, result, fields) => {
+    con.query(checkUserEmail, [email, token], (err, result, fields) => {
 
-        console.log("result=" + result);
+      console.log("result=" + result);
 
-        if (err) {
-          throw err
-        }
+      if (err) {
+        throw err
+      }
 
-        if (result && result.length) {
-          const hashed_password = md5(password.toString())
+      if (result && result.length) {
+        const hashed_password = md5(password.toString())
 
-          const sql = `update users set password = ? , ResetToken = null where UserEmail= ?`
-          con.query(
-            sql, [hashed_password, email],
-            (err, result, fields) => {
-              console.log("err=" + err);
-              if (err) {
-                res.send({ status: 0, data: err });
-              } else {
-                const link = `Your password has been reset successfully.`;
-                sendEmail(email, "Password reset Success", link);
-                res.send({ status: 1, data: result });
-              }
-            });
+        const sql = `update users set password = ? , ResetToken = null where UserEmail= ?`
+        con.query(
+          sql, [hashed_password, email],
+          (err, result, fields) => {
+            console.log("err=" + err);
+            if (err) {
+              res.send({ status: 0, data: err });
+            } else {
+              const link = `Your password has been reset successfully.`;
+              sendEmail(email, "Password reset Success", link);
+              res.send({ status: 1, data: result });
+            }
+          });
 
-          console.log('success');
-        } else {
-          res.send({ status: 0, error: 'Email Not Found' });
-        }
-      });
-//    });
+        console.log('success');
+      } else {
+        res.send({ status: 0, error: 'Email Not Found' });
+      }
+    });
+    //    });
   } catch (error) {
     console.log(error)
     res.send({ status: 0, error: error });
