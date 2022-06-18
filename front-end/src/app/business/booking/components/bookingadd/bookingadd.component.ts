@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ApiService } from 'src/app/services/api.service';
 import { NgForm } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 declare var Razorpay: any;
 
 @Component({
@@ -13,13 +14,15 @@ declare var Razorpay: any;
 
 export class BookingAddComponent implements OnInit {
   numSeatsOptions: any = ['1', '2', '3', '4', '5', '6', '7'];
+  fromDate: string='';
 
   static apiService: ApiService
 
   constructor(
     private _router: Router,
     private _auth: AuthService,
-    private _api: ApiService
+    private _api: ApiService,
+    public datepipe: DatePipe
   ) { 
     BookingAddComponent.apiService = _api
 
@@ -27,6 +30,7 @@ export class BookingAddComponent implements OnInit {
 
   ngOnInit(): void { 
      if (this._auth.getUserDetails() && this._auth.getUserDetails()!.length > 1){
+      this.fromDate = this.datepipe.transform(new Date(), 'yyyy-MM-ddTHH:mm:ss')!
     }
     else{
       this._router.navigate(['/login']);

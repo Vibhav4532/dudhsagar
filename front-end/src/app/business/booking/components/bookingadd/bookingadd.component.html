@@ -2,9 +2,9 @@
 
   <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
     <div>
-      <span class="text-dark">Travel Date and Time</span>
+      <span class="text-dark">Travel Date and Time{{this.fromDate}}</span>
       <input type="datetime-local" id="triptime" name="triptime" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
-        min="2022-03-01T00:00:00" max="2050-12-31T00:00:00" required />
+        min="{{this.fromDate}}" max="2050-12-31T00:00:00" required />
     </div>
     <div>
       <span class="text-dark">Number Of Seats</span>
