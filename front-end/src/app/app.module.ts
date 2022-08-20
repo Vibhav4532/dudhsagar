@@ -32,10 +32,12 @@ import { BookingreportComponent } from './business/report/components/bookingrepo
 import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
 import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
 import { DatePipe } from '@angular/common';
+import { LandingComponent } from './business/components/landing/landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LandingComponent,
     ProfileComponent,
     ContactComponent,
     AdminComponent,
@@ -58,7 +60,7 @@ import { DatePipe } from '@angular/common';
     ForgotPasswordComponent,
     BookingreportComponent,
     BookingsearchComponent,
-    ResetPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

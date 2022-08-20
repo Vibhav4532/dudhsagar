@@ -22,11 +22,13 @@ import { VerifyEmailComponent } from './auth/components/verify-email/verify-emai
 import { BookingreportComponent } from './business/report/components/bookingreport/bookingreport.component';
 import { BookingsearchComponent } from './business/booking/components/bookingsearch/bookingsearch.component';
 import { ResetPasswordComponent } from './auth/components/reset-password/reset-password.component';
+import { LandingComponent } from './business/components/landing/landing.component';
 
 
 
 const routes: Routes = [
-  { path: 'base', redirectTo: '/' , pathMatch: 'full' },
+  { path: 'landing', component: LandingComponent },
+  { path: '', redirectTo: '/landing' , pathMatch: 'full' },
   { path: 'header', component: HeaderComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
