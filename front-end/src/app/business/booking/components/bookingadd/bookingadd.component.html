@@ -1,15 +1,16 @@
 <div class="container">
-  <div class='row'><br/><br/></div>
   <form #myform="ngForm" (ngSubmit)="onSubmit(myform)">
+    <br/><br/>
     <div class='row'>
       <div class="col align-self-end">
         <span class="text-dark">Travel Date and Time</span>
       </div>
       <div class="col align-self-start">
-        <input type="datetime-local" id="triptime" name="triptime" ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
+        <input type="datetime-local" id="triptime" name="triptime" class="form-control SelectStyle"  ngModel placeholder="yyyy-MM-ddTHH:mm:ss"
           min="{{this.fromDate}}" max="2050-12-31T00:00:00" required />
       </div>
     </div>
+    <br/>
     <div class='row'>
       <div class="col align-self-end">
         <span class="text-dark">Number Of Seats</span>
