@@ -24,36 +24,33 @@ router.post('/register', async function (req, res, next) {
     const hashed_password = md5(password.toString())
     const checkUserEmail = `Select UserEmail FROM users WHERE UserEmail = ?`;
 
-    con.connect(function (err) {
-      if (err) throw err;
+    con.query(checkUserEmail, [email], (err, result, fields) => {
 
-      con.query(checkUserEmail, [email], (err, result, fields) => {
+      console.log("result=" + !result);
 
-        console.log("result=" + !result);
+      if (err) {
+        res.send("Error...");
+      }
 
-        if (err) {
-          res.send("Error...");
-        }
+      if (!result || !result.length) {
 
-        if (!result || !result.length) {
+        console.log("inside")
+        const sql = `Insert Into users (username, UserEmail, password ,userrole) VALUES ( ?,?,?,"CUSTOMER")`
+        con.query(
+          sql, [username, email, hashed_password],
+          (err, result, fields) => {
+            console.log("err=" + err);
+            if (err) {
+              res.send({ status: 0, data: err });
+            } else {
+              let token = jwt.sign({ data: result }, 'secret')
+              res.send({ status: 1, data: result, token: token });
+            }
 
-          console.log("inside")
-          const sql = `Insert Into users (username, UserEmail, password ,userrole) VALUES ( ?,?,?,"CUSTOMER")`
-          con.query(
-            sql, [username, email, hashed_password],
-            (err, result, fields) => {
-              console.log("err=" + err);
-              if (err) {
-                res.send({ status: 0, data: err });
-              } else {
-                let token = jwt.sign({ data: result }, 'secret')
-                res.send({ status: 1, data: result, token: token });
-              }
-
-            })
-        }
-      });
+          })
+      }
     });
+    
   } catch (error) {
     res.send({ status: 0, error: error });
   }
@@ -212,7 +209,7 @@ router.post('/vehiclelist', async function (req, res, next) {
   try {
     let { UserRole } = req.body;
     if (UserRole == "ADMIN") {
-      const vehiclesQuery = `SELECT VehicleNo,Model,Seats From Vehicles `
+      const vehiclesQuery = `SELECT VehicleId,VehicleNo,Model,Seats From Vehicles `
       con.query(vehiclesQuery, [], (err, result, fields) => {
         console.log("result=" + result + err);
         if (err) {

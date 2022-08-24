@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'gallery', component: GalleryComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'redirectHome', redirectTo: '/home' , pathMatch: 'full' },
   { path: 'bookinglist', component: BookingListComponent },
   { path: 'bookingreport', component: BookingreportComponent },
   { path: 'bookingsearch', component: BookingsearchComponent },

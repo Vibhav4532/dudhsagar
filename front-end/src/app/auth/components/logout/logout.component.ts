@@ -20,7 +20,7 @@ export class LogoutComponent implements OnInit {
   logout() {
     this._auth.clearStorage();
     this._auth.afterlogout();
-    this._router.navigate(['/home']);
+    this._router.navigate(['/']);
   }
 }
 
