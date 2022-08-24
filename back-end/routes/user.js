@@ -285,7 +285,7 @@ const sendEmail = async (email, subject, text) => {
     //secure: true,
     auth: {
       user: 'tourdudhsagar',
-      pass: 'iiofsozlzyxguvkq',
+      pass: 'rizhezxyucmtupoo',
     },
   });
 
