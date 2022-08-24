@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
     this._auth.clearStorage();
     this._auth.afterlogout();
     this.isLogin = false;
-    this._router.navigate(['/base']);
+    this._router.navigate(['/']);
   }
 
 }
